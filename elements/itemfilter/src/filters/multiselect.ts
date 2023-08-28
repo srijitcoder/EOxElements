@@ -1,6 +1,7 @@
 import { LitElement, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { map } from "lit/directives/map.js";
+import "../inline.ts";
 
 @customElement("eox-itemfilter-multiselect")
 export class EOxItemFilterMultiselect extends LitElement {
@@ -25,8 +26,13 @@ export class EOxItemFilterMultiselect extends LitElement {
     return this;
   }
 
+  firstUpdated() {
+    this.renderRoot.querySelector("eox-itemfilter-inline").options = Object.keys(this.filterObject.state).map(key => ({key}))
+  }
+
   render() {
     return html`
+    <eox-itemfilter-inline></eox-itemfilter-inline>
       <ul>
         ${map(
           Object.keys(this.filterObject.state).sort((a, b) =>

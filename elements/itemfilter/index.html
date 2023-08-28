@@ -8,13 +8,16 @@
   </head>
   <body>
     <eox-itemfilter></eox-itemfilter>
+    <eox-itemfilter-inline id="filterableDropdown"></eox-itemfilter-inline>
     <script type="module">
       import "./src/main.ts";
+      import "./src/inline.ts";
       import "https://unpkg.com/@eox/map@latest/dist/eox-map.js";
       import items from "./test/testItems.json" assert { type: "json" };
 
       const EOxItemFilter = document.querySelector("eox-itemfilter");
-      EOxItemFilter.config = {
+
+      const config = {
         titleProperty: "title",
         filterProperties: [
           {
@@ -122,6 +125,11 @@
         //   }
         // },
       };
+      EOxItemFilter.config = config;
+
+      const dropdown = document.getElementById("filterableDropdown");
+      dropdown.options = config.filterProperties;
+
       EOxItemFilter.apply(items);
       // setTimeout(async () => {
       //   console.log(EOxItemFilter._filters)
