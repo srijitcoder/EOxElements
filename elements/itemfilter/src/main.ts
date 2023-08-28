@@ -2,6 +2,7 @@ import { html, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { when } from "lit/directives/when.js";
 import { map } from "lit/directives/map.js";
+import { repeat } from "lit/directives/repeat.js";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { html as staticHTML, unsafeStatic } from "lit/static-html.js";
 import "toolcool-range-slider";
@@ -27,12 +28,7 @@ export class ElementConfig {
   /**
    * Highlighting of search result character matches
    */
-  public enableHighlighting?: Boolean = false;
-
-  /**
-   * Search functionality // TODO
-   */
-  public enableSearch?: Boolean = false;
+  public enableHighlighting?: boolean = false;
 
   /**
    * Use an external search endpoint instead of fuse search.
@@ -53,15 +49,15 @@ export class ElementConfig {
 
   /**
    * Inline mode, for rendering the itemfilter in avery condensed space.
-   * Expexts showResults to be false and enableSearch to be true
+   * Expexts showResults to be false
    */
-  public inlineMode?: Boolean = false;
+  public inlineMode?: boolean = false;
 
   /**
    * Show all result items if nothing is input by the user
    * @default true
    */
-  public matchAllWhenEmpty?: Boolean = true;
+  public matchAllWhenEmpty?: boolean = true;
 
   /**
    * Callback that is triggered on item search
@@ -78,12 +74,24 @@ export class ElementConfig {
   /**
    * Display results list
    */
-  public showResults?: Boolean = true;
+  public showResults?: boolean = true;
 
   /**
    * The property of the result items used for display
    */
-  public titleProperty: string = "title";
+  public titleProperty = "title";
+
+  /**
+   * Allow opening multiple filter accordeons in parallel
+   * @default true
+   */
+  public expandMultipleFilters?: boolean = true;
+
+  /**
+   * Allow opening multiple result accordeons in parallel
+   * @default true
+   */
+  public expandMultipleResults?: boolean = true;
 }
 
 @customElement("eox-itemfilter")
@@ -91,16 +99,16 @@ export class EOxItemFilter extends TemplateElement {
   _resultAggregation: Array<string> = [];
 
   @state()
-  _items: Array<object> = [];
+  public filters: { [key: string]: FilterObject } = {};
 
   @state()
-  _results: Array<object>;
+  public items: Array<object> = [];
 
   @state()
-  _filters: { [key: string]: FilterObject } = {};
+  public results: Array<object>;
 
   @state()
-  _selectedResult: object;
+  public selectedResult: Item;
 
   @property({ attribute: false }) set config(config) {
     const oldValue = this._config;
@@ -117,7 +125,7 @@ export class EOxItemFilter extends TemplateElement {
 
   @property()
   apply = (items: Array<Object>) => {
-    this._items = items.map((i, index) => ({
+    this.items = items.map((i, index) => ({
       id: `item-${index}`,
       ...i,
     }));
@@ -131,7 +139,7 @@ export class EOxItemFilter extends TemplateElement {
             ? dayjs(value).unix()
             : parseInt(value);
         };
-        this._items.forEach((item: Item) => {
+        this.items.forEach((item: Item) => {
           if (filterProperty.type === "range") {
             if (Array.isArray(item[filterProperty.key] as Array<number>)) {
               const currentValues = [
@@ -168,10 +176,12 @@ export class EOxItemFilter extends TemplateElement {
               (<SpatialFilterObject>filterKeys).geometry = undefined;
               (<SpatialFilterObject>filterKeys).mode =
                 (<SpatialFilterObject>filterProperty).mode || "intersects";
+            } else {
+              filterKeys[item[filterProperty.key]] = undefined;
             }
           }
         });
-        this._filters[
+        this.filters[
           filterProperty.key ||
             (<TextFilterObject>filterProperty).keys.join("|")
         ] = {
@@ -181,6 +191,9 @@ export class EOxItemFilter extends TemplateElement {
             ...filterKeys,
             ...filterProperty.state,
           },
+          ...(filterProperty.state && {
+            dirty: true,
+          }),
           ...(filterProperty.type === "range" && {
             min: (<RangeFilterObject>filterKeys).min,
             max: (<RangeFilterObject>filterKeys).max,
@@ -192,14 +205,14 @@ export class EOxItemFilter extends TemplateElement {
 
     if (this._config.matchAllWhenEmpty !== false) {
       // initially render all items
-      this._results = this.sortResults(this._items);
+      this.results = this.sortResults(this.items);
       this.requestUpdate();
     }
 
     if (this._config.aggregateResults) {
       this._resultAggregation = [
         ...new Set(
-          this._items.reduce((store: Array<string>, item: Item) => {
+          this.items.reduce((store: Array<string>, item: Item) => {
             return store.concat(item[this._config.aggregateResults]);
           }, [])
         ),
@@ -207,7 +220,7 @@ export class EOxItemFilter extends TemplateElement {
     }
 
     const fuseKeys: Array<string> = [];
-    this._config.filterProperties.forEach((f) => {
+    Object.values(this.filters).forEach((f) => {
       if (f.type === "text") {
         (<TextFilterObject>f).keys.forEach((k) => {
           if (!fuseKeys.includes(k)) {
@@ -220,24 +233,28 @@ export class EOxItemFilter extends TemplateElement {
         }
       }
     });
-    indexItems(this._items, {
+    indexItems(this.items, {
       keys: fuseKeys,
       ...this._config.fuseConfig,
     });
+    this.search();
   };
 
+  @property({ attribute: false })
+  styleOverride: string;
+
   @property({ type: Boolean })
-  unstyled: Boolean;
+  unstyled: boolean;
 
   private async search() {
     let results;
     if (this.config.externalFilter) {
-      results = await filterExternal(this._items, this._filters, this._config);
+      results = await filterExternal(this.items, this.filters, this._config);
     } else {
-      results = await filterClient(this._items, this._filters, this._config);
+      results = await filterClient(this.items, this.filters, this._config);
     }
-    this._results = this.sortResults(results);
-    this._config.onFilter(this._results, this._filters);
+    this.results = this.sortResults(results);
+    this._config.onFilter(this.results, this.filters);
   }
 
   aggregateResults(items: Array<Object>, property: string) {
@@ -248,10 +265,10 @@ export class EOxItemFilter extends TemplateElement {
       // as the filter, it doesn't make sense to show all aggregations, but only
       // the one matching the current filter
       let currentFilter;
-      if (this._filters[this._config.aggregateResults]) {
+      if (this.filters[this._config.aggregateResults]) {
         currentFilter = Object.keys(
-          this._filters[this._config.aggregateResults]
-        ).filter((f) => this._filters[this._config.aggregateResults].state[f]);
+          this.filters[this._config.aggregateResults]
+        ).filter((f) => this.filters[this._config.aggregateResults].state[f]);
       }
 
       const includedInCurrentFilter = currentFilter?.length
@@ -277,61 +294,128 @@ export class EOxItemFilter extends TemplateElement {
     this.search();
   }
 
+  toggleAccordion(event: CustomEvent) {
+    let detailsElement: HTMLDetailsElement;
+
+    if (event.detail) {
+      detailsElement = event.detail.target as HTMLDetailsElement;
+    } else {
+      detailsElement = event.target as HTMLDetailsElement;
+    }
+
+    if (detailsElement.classList.contains('details-filter')) {
+      if (!detailsElement.open || this.config.expandMultipleFilters) return;
+
+      this.shadowRoot!.querySelectorAll('eox-itemfilter-expandcontainer').forEach(container => {
+        const details = container.shadowRoot!.querySelector('.details-filter');
+        if (details && details !== detailsElement) {
+            details.removeAttribute('open');
+        }
+      });
+    } else {
+      if (!detailsElement.open || this.config.expandMultipleResults) return;
+
+      this.shadowRoot!
+        .querySelectorAll('details')
+        .forEach(details => {
+          if (details !== detailsElement) {
+              details.removeAttribute('open');
+          }
+        });
+    }
+  }
+
   render() {
     return html`
       <style>
         ${style}
         ${!this.unstyled && styleEOX}
+        ${this.styleOverride}
       </style>
-      <form @submit="${(evt: FormDataEvent) => evt.preventDefault()}">
+      <form
+        id="itemfilter"
+        @submit="${(evt: FormDataEvent) => evt.preventDefault()}"
+      >
         ${when(
           this._config.filterProperties.length,
           () => html`
             <section class="${this.config.inlineMode ? "inline" : nothing}">
               ${when(
                 !this.config.inlineMode,
-                () => html` <slot name="filterstitle"></slot> `
+                () =>
+                  html`
+                    <slot name="filterstitle"
+                      ><h4 style="margin-top: 8px">Filters</h4></slot
+                    >
+                  `
               )}
               <ul id="filters">
                 ${map(
-                  Object.values(this._filters),
+                  Object.values(this.filters),
                   (filterObject) => staticHTML`
                   <li>
-                    <eox-itemfilter-expandcontainer .filterObject=${filterObject}>
-                      <eox-itemfilter-${unsafeStatic(filterObject.type)}
-                        slot="filter"
-                        data-type="filter"
-                        .filterObject=${filterObject}
-                        @filter="${() => this.search()}"
-                      ></eox-itemfilter-${unsafeStatic(filterObject.type)}>
-                    </eox-itemfilter-expandcontainer>
+                    ${
+                      filterObject.featured
+                        ? staticHTML`
+                          <eox-itemfilter-${unsafeStatic(filterObject.type)}
+                            slot="filter"
+                            data-type="filter"
+                            .filterObject=${filterObject}
+                            @filter="${() => this.search()}"
+                          ></eox-itemfilter-${unsafeStatic(filterObject.type)}>
+                        `
+                        : staticHTML`
+                          <eox-itemfilter-expandcontainer
+                            .filterObject=${filterObject}
+                            .unstyled=${this.unstyled}
+                            @details-toggled=${this.toggleAccordion}
+                          >
+                            <eox-itemfilter-${unsafeStatic(filterObject.type)}
+                              slot="filter"
+                              data-type="filter"
+                              data-filter="${filterObject.key}"
+                              .filterObject=${filterObject}
+                              @filter="${() => this.search()}"
+                            ></eox-itemfilter-${unsafeStatic(
+                              filterObject.type
+                            )}>
+                          </eox-itemfilter-expandcontainer>
+                      `
+                    }
                   </li>
                 `
                 )}
               </ul>
               ${when(
-                this._config.filterProperties,
+                this._config.filterProperties &&
+                  Object.values(this.filters)
+                    .map((f) => f.dirty)
+                    .filter((f) => f).length > 0,
                 () => html`
-                  <a
+                  <button
                     id="filter-reset"
+                    class="outline small"
                     data-cy="filter-reset"
                     @click=${() => this.resetFilters()}
-                    >Reset filters</a
                   >
+                    Reset filters
+                  </a>
                 `
               )}
             </section>
           `
         )}
         ${when(
-          this.config.showResults && this._results,
+          this.config.showResults && this.results,
           () => html`
             <section id="section-results">
               <div>
-                <slot name="resultstitle"></slot>
+                <slot name="resultstitle"
+                  ><h4 style="margin-top: 8px">Results</h4></slot
+                >
               </div>
               <div id="container-results" class="scroll">
-                ${this._results.length < 1
+                ${this.results.length < 1
                   ? html` <small class="no-results">No matching items</small> `
                   : nothing}
                 <ul id="results" part="results">
@@ -340,40 +424,54 @@ export class EOxItemFilter extends TemplateElement {
                         this._resultAggregation.filter(
                           (aggregationProperty) =>
                             this.aggregateResults(
-                              this._results,
+                              this.results,
                               aggregationProperty
                             ).length
                         ),
                         (aggregationProperty) => html`<details
-                          id="details-results"
+                          class="details-results"
+                          @toggle=${this.toggleAccordion}
                           open
                         >
                           <summary>
                             <span class="title">
                               ${aggregationProperty}
                               <span class="count"
-                                >(${this.aggregateResults(
-                                  this._results,
+                                >${this.aggregateResults(
+                                  this.results,
                                   aggregationProperty
-                                ).length})</span
+                                ).length}</span
                               >
                             </span>
                           </summary>
                           <ul>
-                            ${map(
+                            ${repeat(
                               this.aggregateResults(
-                                this._results,
+                                this.results,
                                 aggregationProperty
                               ),
+                              (item: Item) => item.id,
                               (item: Item) => html`
-                                <li>
+                                <li
+                                  class=${this.selectedResult?.[
+                                    this._config.titleProperty
+                                  ] === item[this._config.titleProperty]
+                                    ? "highlighted"
+                                    : nothing}
+                                >
                                   <label>
                                     <input
+                                      data-cy="result-radio"
                                       type="radio"
+                                      class="result-radio"
                                       name="result"
                                       id="${item.id}"
+                                      checked=${this.selectedResult?.[
+                                        this._config.titleProperty
+                                      ] === item[this._config.titleProperty] ||
+                                      nothing}
                                       @click=${() => {
-                                        this._selectedResult = item;
+                                        this.selectedResult = item;
                                         this._config.onSelect(item);
                                       }}
                                     />
@@ -401,10 +499,36 @@ export class EOxItemFilter extends TemplateElement {
                         </details>`
                       )
                     : map(
-                        this._results,
+                        this.results,
                         (item: Item) =>
                           html`<li part="result">
-                            ${unsafeHTML(item[this._config.titleProperty])}
+                            <label>
+                              <input
+                                type="radio"
+                                name="result"
+                                id="${item.id}"
+                                @click=${() => {
+                                  this.selectedResult = item;
+                                  this._config.onSelect(item);
+                                }}
+                              />
+                              ${when(
+                                this.hasTemplate("result"),
+                                () =>
+                                  this.renderTemplate(
+                                    "result",
+                                    item,
+                                    `result-${item.id}`
+                                  ),
+                                () => html`
+                                  <span class="title"
+                                    >${unsafeHTML(
+                                      item[this._config.titleProperty]
+                                    )}</span
+                                  >
+                                `
+                              )}
+                            </label>
                           </li>`
                       )}
                 </ul>

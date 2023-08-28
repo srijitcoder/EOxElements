@@ -28,10 +28,10 @@ export class EOxDrawTools extends LitElement {
   _drawnFeatures: Array<Feature<Geometry>> = [];
 
   @state()
-  _currentlyDrawing: Boolean;
+  _currentlyDrawing: boolean;
 
   @property({ type: Boolean })
-  multipleFeatures: Boolean;
+  multipleFeatures: boolean;
 
   /**
    * The query selector for the map
@@ -43,7 +43,7 @@ export class EOxDrawTools extends LitElement {
   layer: string;
 
   @property({ type: Boolean })
-  unstyled: Boolean;
+  unstyled: boolean;
 
   _draw: Draw;
   _modify: Modify;
@@ -121,6 +121,8 @@ export class EOxDrawTools extends LitElement {
       <div>
         <slot></slot>
         <button
+          data-cy="drawBtn"
+          class="icon-text polygon"
           disabled="${(!this.multipleFeatures && this._drawnFeatures.length) ||
           this._currentlyDrawing ||
           nothing}"
@@ -129,6 +131,7 @@ export class EOxDrawTools extends LitElement {
           ${this._currentlyDrawing ? "drawing" : "draw"}
         </button>
         <button
+          data-cy="discardBtn"
           class="discard"
           disabled="${(!this._drawnFeatures.length &&
             !this._currentlyDrawing) ||

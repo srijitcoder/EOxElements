@@ -73,6 +73,8 @@
         ],
         aggregateResults: "themes",
         enableSearch: true,
+        expandMultipleFilters: false,
+        expandMultipleResults: false,
         // enableHighlighting: true,
         // showResults: false,
         onSelect: (item) => {
@@ -131,6 +133,14 @@
       dropdown.options = config.filterProperties;
 
       EOxItemFilter.apply(items);
+      // EOxItemFilter.styleOverride = `
+      //   input[type=checkbox]#agriculture:after {
+      //     content: "foo";
+      //   }
+      //   input[type=checkbox]#agriculture:checked:after {
+      //     content: "bar";
+      //   }
+      // `;
       // setTimeout(async () => {
       //   console.log(EOxItemFilter._filters)
       //   EOxItemFilter._filters.themes.state.air = true

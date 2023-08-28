@@ -9,8 +9,10 @@ declare type Filter = HTMLElement & {
 declare type FilterState = { [key: string]: any };
 
 declare type FilterObject = {
-  exclusive?: Boolean;
-  expanded?: Boolean;
+  dirty?: boolean;
+  exclusive?: boolean;
+  expanded?: boolean;
+  featured?: boolean;
   format?: string;
   key: string;
   state?: FilterState;
