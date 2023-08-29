@@ -6,6 +6,7 @@ import { when } from "lit/directives/when.js";
 import { Map, Collection } from "ol";
 import { Layer } from "ol/layer";
 import LayerGroup from "ol/layer/Group";
+import BaseLayer from "ol/layer/Base";
 // @ts-ignore
 import Sortable from "sortablejs/modular/sortable.core.esm.js";
 import { style } from "./style";
@@ -57,19 +58,19 @@ export class EOxLayerControl extends LitElement {
   private _updateControl(layerCollection: Collection<any>) {
     // initially check if all layers have an id and title,
     // fill in some backup in case they haven't
-    const checkProperties = (layerArray: Array<Layer | LayerGroup>) => {
+    const checkProperties = (layerArray: Array<Layer | LayerGroup | BaseLayer>) => {
       layerArray.forEach((layer) => {
-        if (!layer.get(this.layerIdentifier)) {
-          // @ts-ignore
-          layer.set(this.layerIdentifier, layer.ol_uid);
+        if (layer instanceof Layer) {
+          if (!layer.get(this.layerIdentifier)) {
+            // @ts-ignore
+            layer.set(this.layerIdentifier, layer.ol_uid);
+          }
+          if (!layer.get(this.layerTitle)) {
+            // @ts-ignore
+            layer.set(this.layerTitle, `layer ${layer.ol_uid}`);
+          }
         }
-        if (!layer.get(this.layerTitle)) {
-          // @ts-ignore
-          layer.set(this.layerTitle, `layer ${layer.ol_uid}`);
-        }
-        // @ts-ignore
-        if (layer.getLayers) {
-          // @ts-ignore
+        if (layer instanceof LayerGroup) {
           checkProperties(layer.getLayers().getArray());
         }
       });
