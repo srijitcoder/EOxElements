@@ -46,6 +46,11 @@ class EOxItemFilterInline extends LitElement {
     }
   `;
 
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   connectedCallback() {
     super.connectedCallback();
     addEventListener('click', this.handleClick);
@@ -56,9 +61,30 @@ class EOxItemFilterInline extends LitElement {
     window.removeEventListener('keydown', this.handleClick);
   }
 
+  openDropdown() {
+    const dropdown = this.shadowRoot?.querySelector('#dropdown') as HTMLElement;
+    if (dropdown) {
+      dropdown.style.display = "block";
+    }
+  }
+
+  closeDropdown() {
+    const dropdown = this.shadowRoot?.querySelector('#dropdown') as HTMLElement;
+    const itemFilter = this.shadowRoot?.querySelector('eox-itemfilter-inline');
+
+    if (dropdown && this.clickedElement !== itemFilter) {
+      dropdown.style.display = "none";
+    }
+  }
+
   handleClick(e: Event) {
     this.clickedElement = e.target;
-    console.log(this.clickedElement);
+
+    const itemFilter = document?.querySelector('eox-itemfilter-inline');
+    console.log(itemFilter !== this.clickedElement)
+    if (this.clickedElement !== itemFilter) {
+      this.closeDropdown();
+    }
   }
 
   handleSelectChange(event: Event) {
@@ -78,35 +104,20 @@ class EOxItemFilterInline extends LitElement {
         option.key?.toLowerCase().includes(filterText)
       );
     }
-
-    console.log(filterText, this.filteredOptions)
   }
 
-  openDropdown() {
-    const dropdown = this.shadowRoot?.querySelector('#dropdown') as HTMLElement;
-    if (dropdown) {
-      dropdown.style.display = "block";
-    }
-  }
-
-  closeDropdown() {
-    const dropdown = this.shadowRoot?.querySelector('#dropdown') as HTMLElement;
-    const itemFilter = this.shadowRoot?.querySelector('eox-itemfilter-inline');
-    console.log(itemFilter);
-
-    if (dropdown && this.clickedElement !== itemFilter) {
-      dropdown.style.display = "none";
-    }
-  }
-
-  _addFilterItem(item) {
+  toggleFilterItem(item) {
     return () => {
-      this.selectedFilters.push(item);
+      if (this.selectedFilters.some(i => i.key === item.key)) {
+        this.selectedFilters = this.selectedFilters.filter((i) => {
+          return i.key !== item.key
+        });
+      } else {
+        this.selectedFilters.push(item);
+      }
       this.requestUpdate();
-      console.log(this.selectedFilters)
     }
   }
-
   
   protected render() {
     return html`
@@ -115,22 +126,25 @@ class EOxItemFilterInline extends LitElement {
         ${map(this.selectedFilters, (item) => html`
         <eox-itemfilter-chip label=${item.title || item.key}></eox-itemfilter-chip>
       `)}
-          <eox-itemfilter-chip label="Chip example"></eox-itemfilter-chip>
-          <eox-itemfilter-chip label="This is a waaaaay loooonger chip!!!"></eox-itemfilter-chip>
         </span>
         <input
           type="text"
           .value=${this.selectedOption}
           @input=${this.handleInput}
           @focus=${this.openDropdown}
-          @blur=${this.closeDropdown}
         />
       </div>
       <ul id="dropdown">
       ${this.filteredOptions.length > 0 ? this.filteredOptions.map(option => html`
-        <li value=${option.key} @click=${this._addFilterItem(option)}>${option.title || option.key}</li>
+        <li value=${option.key}>
+          <input type="checkbox" id=${option.key} @click=${this.toggleFilterItem(option)} />
+          <label for=${option.key}>${option.title || option.key}</label>
+        </li>
       `) : this.options.map(option => html`
-      <li value=${option.key} @click=${this._addFilterItem(option)}>${option.title || option.key}</li>
+        <li value=${option.key}>
+          <input type="checkbox" id=${option.key} @click=${this.toggleFilterItem(option)} />
+          <label for=${option.key}>${option.title || option.key}</label>
+        </li>
     `)}
     </ul>
     `;
