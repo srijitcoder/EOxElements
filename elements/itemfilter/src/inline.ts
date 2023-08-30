@@ -107,14 +107,18 @@ class EOxItemFilterInline extends LitElement {
 
   toggleFilterItem(item) {
     return () => {
-      if (this.selectedFilters.some(i => i.key === item.key)) {
-        this.selectedFilters = this.selectedFilters.filter((i) => {
-          return i.key !== item.key
-        });
-      } else {
-        this.selectedFilters.push(item);
+      if (item) {
+        if (this.selectedFilters.some(i => i.key === item.key)) {
+          this.selectedFilters = this.selectedFilters.filter((i) => {
+            return i.key !== item.key
+          });
+        } else {
+          this.selectedFilters.push(item);
+        }
+  
+        item.selected = !item.selected;
+        this.requestUpdate();
       }
-      this.requestUpdate();
     }
   }
   
@@ -136,12 +140,12 @@ class EOxItemFilterInline extends LitElement {
       <ul id="dropdown">
       ${this.filteredOptions.length > 0 ? this.filteredOptions.map(option => html`
         <li value=${option.key}>
-          <input type="checkbox" id=${option.key} @click=${this.toggleFilterItem(option)} />
+          <input type="checkbox" id=${option.key} @click=${this.toggleFilterItem(option)} ?checked=${option.selected}/>
           <label for=${option.key}>${option.title || option.key}</label>
         </li>
       `) : this.options.map(option => html`
         <li value=${option.key}>
-          <input type="checkbox" id=${option.key} @click=${this.toggleFilterItem(option)} />
+          <input type="checkbox" id=${option.key} @click=${this.toggleFilterItem(option)} ?checked=${option.selected}/>
           <label for=${option.key}>${option.title || option.key}</label>
         </li>
     `)}
