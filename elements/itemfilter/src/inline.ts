@@ -81,7 +81,6 @@ class EOxItemFilterInline extends LitElement {
     this.clickedElement = e.target;
 
     const itemFilter = document?.querySelector('eox-itemfilter-inline');
-    console.log(itemFilter !== this.clickedElement)
     if (this.clickedElement !== itemFilter) {
       this.closeDropdown();
     }
