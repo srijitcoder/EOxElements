@@ -606,7 +606,7 @@ export class EOxLayerConfig extends LitElement {
             <slot></slot>
             <div class="slider-control">
               <div class="slider-property">Remove</div>
-              <button
+              <span
                 class="delete"
                 @click="${() =>
                   this.dispatchEvent(new CustomEvent("removeLayer"))}"
