@@ -1,4 +1,4 @@
-import { LitElement, html } from "lit";
+import { LitElement, html, PropertyValueMap } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import Map from "ol/Map.js";
 import View from "ol/View.js";
@@ -225,5 +225,24 @@ export class EOxMap extends LitElement {
       const loadEvt = new CustomEvent("loadend", { detail: { foo: "bar" } });
       this.dispatchEvent(loadEvt);
     });
+  }
+
+  protected updated(
+    _changedProperties:
+      | PropertyValueMap<any>
+      | globalThis.Map<PropertyKey, unknown>
+  ): void {
+    if (_changedProperties.has("layers")) {
+      const oldLayers = _changedProperties.get("layers");
+      // TODO don't replace layers, but update them
+      // this.setLayers(this.layers);
+      this.layers.forEach((l) => {
+        this.addOrUpdateLayer(l);
+        // + recursive for groups
+      });
+      // oldLayers.forEach((l) => {
+      //   // + remove layers if missing in json
+      // })
+    }
   }
 }

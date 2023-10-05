@@ -22,6 +22,55 @@ export const Primary = {
     `,
 };
 
+export const UpdateLayers = {
+  args: {
+    zoom: 4,
+  },
+  render: (args) =>
+    html`
+      <eox-map
+        id="update"
+        style="width: 400px; height: 300px;"
+        zoom="${args.zoom}"
+        center="[15, 48]"
+        layers='[{"type":"Tile","properties": {"id": "customId"}, "source":{"type":"OSM"}}]'
+      ></eox-map>
+      <p>
+        Trigger a layer update (replaces the <code>layers</code> property of the
+        element): <button id="update">Update layers</button>
+      </p>
+      <code id="update"></code>
+      <script>
+        const map = document.querySelector("eox-map#update");
+        document.querySelector("code#update").innerHTML = JSON.stringify(
+          map.layers
+        );
+        document
+          .querySelector("button#update")
+          .addEventListener("click", () => {
+            map.layers = [
+              {
+                type: "Tile",
+                properties: {
+                  id: "customId",
+                },
+                source: {
+                  type: "TileWMS",
+                  url: "https://services.sentinel-hub.com/ogc/wms/0635c213-17a1-48ee-aef7-9d1731695a54",
+                  params: {
+                    LAYERS: "AWS_NO2-VISUALISATION",
+                  },
+                },
+              },
+            ];
+            document.querySelector("code#update").innerHTML = JSON.stringify(
+              map.layers
+            );
+          });
+      </script>
+    `,
+};
+
 export const ABCompare = {
   render: () =>
     html`
