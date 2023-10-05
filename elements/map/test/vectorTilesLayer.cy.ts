@@ -1,6 +1,7 @@
 import { VectorTile } from "ol/layer";
 import "../main";
 import vectorTileLayerStyleJson from "./vectorTilesLayer.json";
+import { Fill, Style } from "ol/style";
 
 describe("VectorTile Layer", () => {
   it("loads a Vector Tile Layer, applies flat style", () => {
@@ -34,6 +35,32 @@ describe("VectorTile Layer", () => {
           resolve();
         }, 1000);
       });
+    });
+  });
+  it("loads a Vector Tile Layer, applies style constructors", () => {
+    cy.intercept(/^.*geoserver.*$/, {
+      fixture: "/tiles/mapbox-streets-v6/14/8937/5679.vector.pbf,null",
+      encoding: "binary",
+    });
+
+    // @ts-ignore
+    vectorTileLayerStyleJson[0].style = new Style({
+      fill: new Fill({
+        color: "#f00",
+      }),
+    });
+
+    cy.mount(
+      `<eox-map zoom=1 layers='${JSON.stringify(
+        vectorTileLayerStyleJson
+      )}'></eox-map>`
+    ).as("eox-map");
+
+    cy.get("eox-map").and(($el) => {
+      const eoxMap = <EOxMap>$el[0];
+
+      const layer = eoxMap.getLayerById("countries") as VectorTile;
+      expect(layer.getStyle()).to.not.be(null);
     });
   });
   /*it("loads a Vector Tile Layer, applies mapbox style", () => {
