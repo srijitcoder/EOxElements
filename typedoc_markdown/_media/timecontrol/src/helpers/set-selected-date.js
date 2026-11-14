@@ -1,0 +1,137 @@
+import dayjs from "dayjs";
+import groupBy from "lodash.groupby";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import { dispatchElementEvent } from "@eox/elements-utils";
+import { updateChildrenDateRange } from "./";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+/**
+ * @typedef {import("../types").DateRange} DateRange
+ * @typedef {import("../main").EOxTimeControl} EOxTimeControl
+ * @typedef {import("@eox/map").EOxMap} EOxMap
+ */
+
+/**
+ * Sets the selected date range on the timecontrol component and updates map layers accordingly.
+ * This function:
+ * - Updates the selectedDateRange property on the timecontrol component
+ * - Updates all child components (date, picker, timeline, timelapse, slider) with the new date range
+ * - Filters timeline items to find those within the selected date range
+ * - Updates WMS layer source parameters with the selected date (if not using external map rendering)
+ * - Dispatches a 'select' event with details about selected items, date range, filters, and layer instances
+ *
+ * @param {DateRange} dateRange - The selected date range as [startDate, endDate] in ISO format.
+ * @param {EOxMap | null} eoxMap - The EOx map instance, or null if no map is associated.
+ * @param {EOxTimeControl} EOxTimeControl - The timecontrol component instance.
+ * @param {object} [options] - Options for the selection update.
+ * @param {boolean} [options.activity] - Whether the date change was triggered by user interaction.
+ * @param {string} [options.action] - Action name override for activity tracking.
+ * @param {Event} [options.originalEvent] - Underlying DOM or library event if available.
+ */
+export default function setSelectedDate(
+  dateRange,
+  eoxMap,
+  EOxTimeControl,
+  options = {},
+) {
+  EOxTimeControl.selectedDateRange = dateRange;
+  updateChildrenDateRange(
+    EOxTimeControl,
+    [
+      "eox-timecontrol-date",
+      "eox-timecontrol-picker",
+      "eox-timecontrol-slider",
+      "eox-timecontrol-timeline",
+      "eox-timecontrol-timelapse",
+    ],
+    dateRange,
+    EOxTimeControl.items.get(),
+  );
+  const selectedDateRange = dayjs(dateRange[0]);
+  if (Number.isNaN(selectedDateRange.unix())) return;
+
+  const isUtc = EOxTimeControl.showUTC;
+  const dayjsDateRange = [
+    isUtc ? dayjs.utc(dateRange[0]) : dayjs(dateRange[0]),
+    isUtc ? dayjs.utc(dateRange[1]) : dayjs(dateRange[1]),
+  ];
+
+  const [start, end] = dayjsDateRange[0].isBefore(dayjsDateRange[1])
+    ? [dayjsDateRange[0], dayjsDateRange[1]]
+    : [dayjsDateRange[1], dayjsDateRange[0]];
+
+  const selectedRangeItems = EOxTimeControl.items.get().filter((item) => {
+    const itemDate = item.utc;
+    if (!itemDate) return false;
+    const d = isUtc ? dayjs.utc(itemDate) : dayjs(itemDate);
+    return (
+      (d.isSame(start, "day") || d.isAfter(start, "day")) &&
+      (d.isSame(end, "day") || d.isBefore(end, "day"))
+    );
+  });
+
+  let instances = {};
+  selectedRangeItems.forEach((item, index) => {
+    if (item.group && eoxMap) {
+      const layer = EOxTimeControl.sliderValues.find(
+        (slider) => slider.layer === item.group,
+      )?.layerInstance;
+      // @ts-expect-error Property 'getSource' does not exist on type 'BaseLayer'.
+      const source = layer?.getLayers ? null : layer?.getSource();
+      instances = {
+        ...instances,
+        [item.group]: { layer, source: source || null },
+      };
+
+      if (!EOxTimeControl.externalMapRendering) {
+        if (typeof source?.updateParams === "function") {
+          source.updateParams({
+            [item.property]: item.date,
+          });
+        } else if (typeof source?.updateDimensions === "function") {
+          const sliceMap = layer?.get
+            ? layer.get("layerDatetime")?.sliceMap
+            : null;
+          const targetDate = item.originalDate || item.utc || item.date;
+          let sliceIndex = index;
+          if (sliceMap) {
+            if (targetDate in sliceMap) {
+              sliceIndex = sliceMap[targetDate];
+            } else {
+              const matchedKey = Object.keys(sliceMap).find(
+                (k) => k.startsWith(targetDate) || targetDate.startsWith(k),
+              );
+              if (matchedKey !== undefined) sliceIndex = sliceMap[matchedKey];
+            }
+          }
+          source.updateDimensions({
+            time: sliceIndex,
+          });
+        }
+      }
+    }
+  });
+
+  const itemsFilter = /** @type {any} */ (
+    EOxTimeControl.renderRoot.querySelector("#timecontrol-filter")
+  );
+
+  dispatchElementEvent(EOxTimeControl, "select", {
+    detail: {
+      selectedItems: groupBy(selectedRangeItems, "group"),
+      date: [
+        dayjs(dateRange[0]).utc().toDate(),
+        dayjs(dateRange[1]).utc().toDate(),
+      ],
+      filters: itemsFilter?.filters || [],
+      instances: instances,
+    },
+    activity: options?.activity,
+    action: options?.action || "select",
+    originalEvent: options?.originalEvent,
+  });
+  EOxTimeControl.requestUpdate();
+}

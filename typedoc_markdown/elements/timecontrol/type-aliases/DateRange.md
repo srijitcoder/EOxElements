@@ -1,0 +1,13 @@
+[**@eox/elements**](../../../README.md)
+
+***
+
+[@eox/elements](../../../modules.md) / [elements/timecontrol](../README.md) / DateRange
+
+# Type Alias: DateRange
+
+> **DateRange** = \[`string`, `string`\]
+
+Defined in: [elements/timecontrol/src/types.ts:86](https://github.com/srijitcoder/EOxElements/blob/10ccc6e416662c538250db21c644bfd445590aad/elements/timecontrol/src/types.ts#L86)
+
+Represents a date range as an array of two ISO date strings.

@@ -1,0 +1,96 @@
+// Importing necessary modules, test cases, and enums
+import "../src/main";
+import "./_mockedDrawtools";
+import {
+  loadJsonFormTest,
+  loadJsonFormNoShadowTest,
+  loadExternalSchemaTest,
+  loadExternalValueTest,
+  loadReRenderFormOnChangeTest,
+  loadMarkdownTest,
+  loadCodeMarkdownToolbarTest,
+  loadCodeMarkdownToolbarStickyTest,
+  loadCodeMarkdownToolbarUnstyledTest,
+  loadCodeMarkdownToolbarUploadTest,
+  loadCodeMarkdownToolbarPdfUploadTest,
+  loadCodeMarkdownToolbarVideoUploadTest,
+  loadCodeMarkdownToolbarCustomHandlerTest,
+  loadAceMarkdownDisableUndoRedoTest,
+  triggerChangeEventTest,
+  loadValuesTest,
+  loadMisMatchingValuesTest,
+  renderDrawtools,
+  loadCustomEditorInterfaceTest,
+  loadSubmitButtonTest,
+  loadCodeTest,
+  loadCodeHTMLTest,
+  loadShowOptInPropertiesTest,
+  loadButtonsEditorTest,
+  loadSpatialValuesTest,
+  validationBehaviorTest,
+  defaultsTest,
+  loadBinaryCheckboxTest,
+  loadGridTest,
+  loadGridStrictTest,
+  loadStepsEditorTest,
+  loadStepsEditorInteractionTest,
+  loadStepsEditorCascadingResetTest,
+  loadStepsEditorConditionalTest,
+  loadMinMaxEditorTest,
+  loadMinMaxBranchSwitchTest,
+} from "./cases";
+
+// Test suite for Jsonform
+describe("Jsonform", () => {
+  // Test case to ensure the jsonform component loads successfully
+  it("loads the jsonform", () => loadJsonFormTest());
+  it("loads the jsonform without shadow root", () =>
+    loadJsonFormNoShadowTest());
+  it("loads schema from url", () => loadExternalSchemaTest());
+  it("loads value from url", () => loadExternalValueTest());
+  it("re-renders form on change", () => loadReRenderFormOnChangeTest());
+  it("loads the binary checkbox", () => loadBinaryCheckboxTest());
+  it("loads the code markdown toolbar", () => loadCodeMarkdownToolbarTest());
+  it("keeps markdown toolbar sticky when scrolled", () =>
+    loadCodeMarkdownToolbarStickyTest());
+  it("hides unstyled markdown toolbar when scrolled", () =>
+    loadCodeMarkdownToolbarUnstyledTest());
+  it("handles image upload in markdown toolbar", () =>
+    loadCodeMarkdownToolbarUploadTest());
+  it("handles non-image file upload in markdown toolbar", () =>
+    loadCodeMarkdownToolbarPdfUploadTest());
+  it("handles video file upload in markdown toolbar", () =>
+    loadCodeMarkdownToolbarVideoUploadTest());
+  it("handles custom upload handler in markdown toolbar", () =>
+    loadCodeMarkdownToolbarCustomHandlerTest());
+  it("disables undo and redo in the markdown editor", () =>
+    loadAceMarkdownDisableUndoRedoTest());
+  it("loads the markdown editor", () => loadMarkdownTest());
+  it("loads the code editor", () => loadCodeTest());
+  it("preserves HTML markup inside code editor", () => loadCodeHTMLTest());
+  it("triggers a change event when typing", () => triggerChangeEventTest());
+  it("loads values", () => loadValuesTest());
+  it("loads mismatching values", () => loadMisMatchingValuesTest());
+  it("loads custom editor interface", () => loadCustomEditorInterfaceTest());
+  it("renders drawtools as a custom input", () => renderDrawtools());
+  it("handles a submit button correctly", () => loadSubmitButtonTest());
+  it("loads the jsonform with show opt in properties", () =>
+    loadShowOptInPropertiesTest());
+  it("loads the buttons editor", () => loadButtonsEditorTest());
+  it("loads spatial values correctly", () => loadSpatialValuesTest());
+  it("handles validation behavior correctly", () => validationBehaviorTest());
+  it("handles defaults correctly", () => defaultsTest());
+  it("loads the grid layout", () => loadGridTest());
+  it("loads the grid-strict layout", () => loadGridStrictTest());
+  it("loads the steps editor", () => loadStepsEditorTest());
+  it("handles steps editor interaction", () =>
+    loadStepsEditorInteractionTest());
+  it("handles steps editor cascading reset", () =>
+    loadStepsEditorCascadingResetTest());
+  it("handles steps editor conditional if/then", () =>
+    loadStepsEditorConditionalTest());
+  it("loads the minmax editor with correct precision", () =>
+    loadMinMaxEditorTest());
+  it("applies branch defaults when switching anyOf branches with minmax slider", () =>
+    loadMinMaxBranchSwitchTest());
+});

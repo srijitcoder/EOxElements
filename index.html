@@ -3,46 +3,54 @@
   <head>
     <meta charset="utf-8" />
 
-    <title>@storybook/cli - Storybook</title>
+    <title>storybook - Storybook</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    
-    <link
-      rel="prefetch"
-      href="./sb-common-assets/nunito-sans-regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="prefetch"
-      href="./sb-common-assets/nunito-sans-bold.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link rel="stylesheet" href="./sb-common-assets/fonts.css" />
+    <style>
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-regular.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-italic.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold-italic.woff2') format('woff2');
+      }
+    </style>
 
     <link href="./sb-manager/runtime.js" rel="modulepreload" />
 
     
-    <link href="./sb-addons/essentials-controls-0/manager-bundle.js" rel="modulepreload" />
+    <link href="./sb-addons/storybook-core-server-presets-0/common-manager-bundle.js" rel="modulepreload" />
     
-    <link href="./sb-addons/essentials-actions-1/manager-bundle.js" rel="modulepreload" />
+    <link href="./sb-addons/docs-1/manager-bundle.js" rel="modulepreload" />
     
-    <link href="./sb-addons/essentials-backgrounds-2/manager-bundle.js" rel="modulepreload" />
+    <link href="./sb-addons/storybook-custom-panels-2/manager-bundle.js" rel="modulepreload" />
     
-    <link href="./sb-addons/essentials-viewport-3/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/essentials-toolbars-4/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/essentials-measure-5/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/essentials-outline-6/manager-bundle.js" rel="modulepreload" />
-    
-    <link href="./sb-addons/storybook-7/manager-bundle.js" rel="modulepreload" />
+    <link href="./sb-addons/storybook-3/manager-bundle.js" rel="modulepreload" />
       <!-- Primary Meta Tags -->
 <title>EOxElements</title>
 <meta name="title" content="EOxElements" />
@@ -90,6 +98,45 @@
   content="A Web Component collection of geospatial UI elements, crafted by EOX."
 />
 <meta property="twitter:image" content="https://eox.at/eox-twitter.jpg" />
+<style>
+  .docblock-source {
+    margin: 0 !important;
+    border: none !important;
+  }
+  .docblock-source > div:not([dir="ltr"]) {
+    bottom: unset;
+    top: 0;
+  }
+  .docblock-source > div:not([dir="ltr"]) > button {
+    border-radius: 0 0 0 4px;
+    border-top-color: initial;
+    border-bottom-color: rgba(38, 85, 115, 0.15);
+    border-style: none none solid solid;
+    border-width: 0 0 1px 1px;
+  }
+</style>
+
+<script>
+  /**
+   * Redirects old "markdown-with-editor" story links
+   * to the new "markdown-showcase" story in the static build.
+   */
+  (function () {
+    const url = new URL(window.location.href);
+    const path = url.searchParams.get("path");
+    const id = url.searchParams.get("id");
+
+    if (path && path.includes("markdown-with-editor")) {
+      const newPath = path.replace("markdown-with-editor", "markdown-showcase");
+      url.searchParams.set("path", newPath);
+      window.location.replace(url.href);
+    } else if (id && id.includes("markdown-with-editor")) {
+      const newId = id.replace("markdown-with-editor", "markdown-showcase");
+      url.searchParams.set("id", newId);
+      window.location.replace(url.href);
+    }
+  })();
+</script>
  
 
     <style>
@@ -108,11 +155,22 @@
       
         
           window['FEATURES'] = {
-  "warnOnLegacyHierarchySeparator": true,
-  "buildStoriesJson": false,
-  "storyStoreV7": true,
+  "actions": true,
   "argTypeTargetsV7": true,
-  "legacyDecoratorFileOrder": false
+  "babelRemoveBugfixes": false,
+  "backgrounds": true,
+  "changeDetection": true,
+  "componentsManifest": false,
+  "controls": true,
+  "disallowImplicitActionsInRenderV8": true,
+  "highlight": true,
+  "interactions": true,
+  "legacyDecoratorFileOrder": false,
+  "measure": true,
+  "outline": true,
+  "menuOnboardingChecklist": true,
+  "sidebarOnboardingChecklist": true,
+  "viewport": true
 };
         
       
@@ -127,7 +185,6 @@
         
           window['DOCS_OPTIONS'] = {
   "defaultName": "Docs",
-  "autodocs": "tag",
   "toc": true
 };
         
@@ -137,6 +194,28 @@
         
       
         
+          window['DOCGEN_STORY_PREPARED'] = false;
+        
+      
+        
+      
+        
+      
+        
+          window['TAGS_OPTIONS'] = {};
+        
+      
+        
+          window['STORYBOOK_BUILDER'] = "vite";
+        
+      
+        
+          window['STORYBOOK_FRAMEWORK'] = "web-components-vite";
+        
+      
+        
+          window['STORYBOOK_RENDERER'] = "web-components";
+        
       
         
       
@@ -144,27 +223,19 @@
     
 
     <script type="module">
+      import './sb-manager/globals-runtime.js';
+
+      
+        import './sb-addons/storybook-core-server-presets-0/common-manager-bundle.js';
+      
+        import './sb-addons/docs-1/manager-bundle.js';
+      
+        import './sb-addons/storybook-custom-panels-2/manager-bundle.js';
+      
+        import './sb-addons/storybook-3/manager-bundle.js';
+      
+
       import './sb-manager/runtime.js';
-
-      
-      import './sb-addons/essentials-controls-0/manager-bundle.js';
-      
-      import './sb-addons/essentials-actions-1/manager-bundle.js';
-      
-      import './sb-addons/essentials-backgrounds-2/manager-bundle.js';
-      
-      import './sb-addons/essentials-viewport-3/manager-bundle.js';
-      
-      import './sb-addons/essentials-toolbars-4/manager-bundle.js';
-      
-      import './sb-addons/essentials-measure-5/manager-bundle.js';
-      
-      import './sb-addons/essentials-outline-6/manager-bundle.js';
-      
-      import './sb-addons/storybook-7/manager-bundle.js';
-      
     </script>
-
-    <link href="./sb-preview/runtime.js" rel="prefetch" as="script" />
   </body>
 </html>

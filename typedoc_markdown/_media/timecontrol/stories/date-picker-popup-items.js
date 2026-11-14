@@ -1,0 +1,113 @@
+import { html } from "lit";
+import { STORY_ARGS } from "../src/enums";
+
+/**
+ * Calendar date picker displayed in popup mode and shows items in the popup
+ *
+ * @returns {object} The story configuration with arguments for the component.
+ */
+const DatePickerPopupItemsStory = {
+  argTypes: {
+    showItems: {
+      control: { type: "boolean" },
+      description:
+        "Whether to show the items popup card when hovering over available dates.",
+    },
+    itemTitleKey: {
+      control: { type: "select" },
+      options: [undefined, "cloudCoverage", "layerName", "itemId", "id"],
+      description:
+        "Property key on the timeline item used as the primary title in the card (e.g. `cloudCoverage`, `layerName`, `itemId`, `id`).",
+    },
+    showTime: {
+      control: { type: "boolean" },
+      description:
+        "Whether to show time in the popup items card (automatically omitted for date-only items).",
+    },
+    timeFormat: {
+      control: { type: "text" },
+      description: "Format string for time display in the popup items card.",
+    },
+  },
+  args: {
+    layerIdKey: STORY_ARGS.layerIdKey,
+    navigation: true,
+    popup: true,
+    showItems: true,
+    itemTitleKey: undefined,
+    showTime: true,
+    timeFormat: "HH:mm",
+    for: "eox-map#date-picker-popup",
+    select: (e) => {
+      console.log(e.detail);
+    },
+    storyAdditionalComponents: {
+      "eox-map": {
+        id: "date-picker-popup",
+        zoom: STORY_ARGS.zoom,
+        center: STORY_ARGS.center,
+        layers: STORY_ARGS.layers,
+      },
+      "eox-timecontrol-date": {
+        storyImport: false,
+        storySlot: true,
+        format: STORY_ARGS.format,
+        navigation: true,
+      },
+      "eox-timecontrol-picker": {
+        storyImport: false,
+        storySlot: true,
+        format: STORY_ARGS.format,
+        showDots: true,
+        popup: true,
+        showItems: true,
+        itemTitleKey: undefined,
+        showTime: true,
+        timeFormat: "HH:mm",
+      },
+    },
+  },
+  render: /** @param {Object.<string, unknown>} args **/ (args) => html`
+    <eox-map
+      style="width: 100%; height: 500px;"
+      id=${args.storyAdditionalComponents["eox-map"].id}
+      .zoom=${args.storyAdditionalComponents["eox-map"].zoom}
+      .center=${args.storyAdditionalComponents["eox-map"].center}
+      .layers=${args.storyAdditionalComponents["eox-map"].layers}
+    ></eox-map>
+    <eox-timecontrol
+      .for=${args.for}
+      .layerIdKey=${args.layerIdKey}
+      .titleKey=${args.titleKey}
+      .filters=${args.filters}
+      .externalMapRendering=${args.externalMapRendering}
+      @select=${args.select}
+    >
+      <eox-timecontrol-date
+        .format=${args.storyAdditionalComponents["eox-timecontrol-date"].format}
+        .navigation=${args.storyAdditionalComponents["eox-timecontrol-date"]
+          .navigation}
+      ></eox-timecontrol-date>
+      <eox-timecontrol-picker
+        .format=${args.storyAdditionalComponents["eox-timecontrol-picker"]
+          .format}
+        .showDots=${args.storyAdditionalComponents["eox-timecontrol-picker"]
+          .showDots}
+        .popup=${args.storyAdditionalComponents["eox-timecontrol-picker"].popup}
+        .showItems=${args.showItems ??
+        args.storyAdditionalComponents["eox-timecontrol-picker"].showItems}
+        .itemTitleKey=${args.itemTitleKey ??
+        args.storyAdditionalComponents["eox-timecontrol-picker"].itemTitleKey}
+        .showTime=${args.showTime ??
+        args.storyAdditionalComponents["eox-timecontrol-picker"].showTime}
+        .timeFormat=${args.timeFormat ??
+        args.storyAdditionalComponents["eox-timecontrol-picker"].timeFormat}
+        .propertyTransform=${args.propertyTransform ??
+        args.storyAdditionalComponents["eox-timecontrol-picker"]
+          .propertyTransform}
+      ></eox-timecontrol-picker>
+    </eox-timecontrol>
+  `,
+};
+
+export default DatePickerPopupItemsStory;

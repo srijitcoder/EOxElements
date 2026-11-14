@@ -1,0 +1,127 @@
+export const ELEMENT_CONFIG = Object.freeze({
+  /**
+   * Aggregate results by a property key
+   */
+  aggregateResults: undefined,
+
+  /**
+   * Automatically spread single item summaries
+   * removing the summary header
+   */
+  autoSpreadSingle: false,
+
+  /**
+   * Highlighting of search result character matches
+   */
+  enableHighlighting: false,
+
+  /**
+   * Use an external search endpoint instead of fuse search.
+   * Passed properties: input string, filters object
+   *
+   * (input, filters) => {}
+   */
+  externalFilter: () => {},
+
+  /**
+   * The filter properties.
+   */
+  filterProperties: [],
+
+  /**
+   * Native fuse.js config override
+   */
+  fuseConfig: {},
+
+  /**
+   * Inline mode, for rendering the itemfilter in a very condensed space.
+   * Expects showResults to be false
+   */
+  inlineMode: false,
+
+  /**
+   * Show all result items if nothing is input by the user
+   * @default true
+   */
+  matchAllWhenEmpty: true,
+
+  /**
+   * Display results list
+   */
+  showResults: true,
+
+  /**
+   * Unique id property of items
+   */
+  idProperty: "id",
+
+  /**
+   * The property of the result items used for display
+   */
+  titleProperty: "title",
+
+  /**
+   * The property of the result items used for a subtitle
+   */
+  subTitleProperty: undefined,
+
+  /**
+   * The property of the result items used for an image
+   */
+  imageProperty: undefined,
+
+  /**
+   * Sorting behavior for the results.
+   * Can be undefined (alphabetical auto-detect), false (no sorting),
+   * string (property to sort by), function (custom comparator),
+   * or object { key: string, order: 'asc'|'desc' }
+   */
+  resultSorting: undefined,
+
+  /**
+   * Allow opening multiple filter accordions in parallel
+   * @default true
+   */
+  expandMultipleFilters: true,
+
+  /**
+   * Initialize result accordions expanded
+   * @default true
+   */
+  expandResults: true,
+
+  /**
+   * Allow opening multiple result accordions in parallel
+   * @default true
+   */
+  expandMultipleResults: true,
+});
+
+export const ELEMENT_PROPERTIES = [
+  "aggregateResults",
+  "autoSpreadSingle",
+  "enableHighlighting",
+  "externalFilter",
+  "filterProperties",
+  "fuseConfig",
+  "inlineMode",
+  "matchAllWhenEmpty",
+  "showResults",
+  "titleProperty",
+  "subTitleProperty",
+  "imageProperty",
+  "idProperty",
+  "resultSorting",
+  "expandMultipleFilters",
+  "expandResults",
+  "expandMultipleResults",
+  "items",
+];
+
+export const DATE_TIME_FORMAT = "YYYY-MM-DD";
+
+/**
+ * Fuzzy matching threshold for filter titles in the inline search box when an
+ * `inlineSearch` filter exists, so search terms do not match unrelated filter titles.
+ */
+export const INLINE_SEARCH_TITLE_THRESHOLD = 0.3;

@@ -1,0 +1,356 @@
+// Global import of eox-elements in .storybook/preview.js!
+import { html } from "lit";
+import {
+  CatalogStory,
+  CollectionStory,
+  ExternalStory,
+  MarkdownStory,
+  CodeMarkdownToolbarStory,
+  CodeMarkdownToolbarUploadStory,
+  PrimaryStory,
+  ActivityStory,
+  ButtonsEditorStory,
+  BinaryCheckboxEditorStory,
+  MinMaxEditorStory,
+  BoundingBoxStory,
+  PolygonStory,
+  FeatureSelectionStory,
+  PointStory,
+  UnStyledStory,
+  WKTStory,
+  GeoJSONStory,
+  LineStory,
+  CustomEditorInterfacesStory,
+  ShowOptInPropertiesStory,
+  ValidationStory,
+  CodeStory,
+  CodeMarkdownDisableUndoRedoStory,
+  OptionalPropertiesStory,
+  FlexLayoutStory,
+  DefaultsStory,
+  GridStory,
+  GridStrictStory,
+  StepsEditorStory,
+  BranchingStory,
+} from "./index.js";
+
+export default {
+  title: "Elements/eox-jsonform",
+  tags: ["autodocs"],
+  component: "eox-jsonform",
+  parameters: {
+    layout: "padded",
+  },
+  render: (args) => html`
+    <eox-jsonform
+      .schema=${args.schema}
+      .value=${args.value}
+      .options=${args.options}
+      .propertiesToggle=${args.propertiesToggle}
+      .noShadow=${args.noShadow}
+      .unstyled=${args.unstyled}
+      @change=${args.change}
+      @ready=${args.ready}
+      @submit=${args.submit}
+    ></eox-jsonform>
+  `,
+};
+
+/**
+ * Basic JSON Form example. Renders a form based on a provided JSON schema.
+ */
+export const Primary = PrimaryStory;
+
+/**
+ * User activity attribution with a runnable parent event log in vanilla JS, React,
+ * Vue, and Svelte examples. Edit the title to emit a functional change with
+ * isUser=true and an eox:activity envelope containing element, action, and payload.
+ * Use Set value programmatically to assign form.value from the host: its change
+ * remains functional (isUser=false) without activity, even when a human clicks
+ * that host button. Initialization also emits functional events without activity.
+ * Parent listeners cross the form's shadow DOM. The log omits originalEvent.
+ */
+export const Activity = ActivityStory;
+
+/**
+ * Validation example. Includes a submit button that is only enabled when validation passes.
+ * Shows how to handle form validation and submit events.
+ */
+export const Validation = ValidationStory;
+
+/**
+ * Ace editor example. Shows how to use a code editor as a form input.
+ * Demonstrates integration of external editors via schema configuration.
+ */
+export const Code = CodeStory;
+
+/**
+ * Ace editor with disabled undo/redo example.
+ * Demonstrates how to disable keyboard shortcuts for undo/redo in the markdown Ace editor.
+ */
+export const CodeMarkdownDisableUndoRedo = CodeMarkdownDisableUndoRedoStory;
+
+/**
+ * Opt-in properties example. Shows how to display and interact with opt-in properties in the form.
+ * Demonstrates dynamic property visibility and value updates.
+ * Required values are always displayed, whereas optional properties are only shown
+ * when they have a value or have been opted-in by the user.
+ */
+export const ShowOptInProperties = ShowOptInPropertiesStory;
+
+/**
+ * Optional properties example. Shows how to handle optional properties in the form schema.
+ * Demonstrates hiding and showing optional fields based on schema and value. Also shows
+ * the "edit properties" button to toggle inclusion or addition of optional properties.
+ */
+export const OptionalProperties = OptionalPropertiesStory;
+
+/**
+ * STAC Catalog example. Renders a form based on a STAC Catalog schema and value.
+ * Demonstrates complex schema usage and initial value population.
+ */
+export const Catalog = CatalogStory;
+
+/**
+ * STAC Collection example. Renders a form based on a STAC Collection schema and value.
+ * Demonstrates advanced schema features and toggling properties.
+ */
+export const Collection = CollectionStory;
+
+/**
+ * Grid layout example. Shows how to use the grid format for objects.
+ * In `grid` format, child editors are placed multiple per row and stretched to fill the 12-column grid.
+ * On small screens (below 600px), fields take up the full width (12 columns), while on medium and large screens, they respect the calculated grid width.
+ */
+export const Grid = GridStory;
+
+/**
+ * Grid Strict layout example. Shows how to use the `grid-strict` format for objects.
+ * Unlike the standard `grid` format, `grid-strict` respects explicit column sizes defined
+ * in `options.grid_columns` without automatic stretching. It also supports `options.grid_break`
+ * to manually wrap to a new row.
+ * On small screens, fields take up the full width, while on medium and large screens, they respect the explicit column sizes.
+ */
+export const GridStrict = GridStrictStory;
+
+/**
+ * External URL example. Loads schema and value from external URLs.
+ * Demonstrates async loading and ready event handling. Once the `eox-jsonform` has loaded,
+ * it logs to the console that it is ready ("Schema loading finished, editor ready!").
+ */
+export const External = ExternalStory;
+
+/**
+ * Markdown Editor example. Renders a markdown editor input based on schema configuration.
+ * Demonstrates integration of markdown editing in forms.
+ */
+export const Markdown = MarkdownStory;
+
+/**
+ * Code Markdown editor example. This story demonstrates a custom configuration option that extends the
+ * built-in ACE editor to include a markdown toolbar. It is activated by using
+ * `format: "markdown"`, `options.resolver: "ace"` and `options.markdownToolbar: true` in the schema.
+ */
+export const CodeMarkdownToolbar = CodeMarkdownToolbarStory;
+
+/**
+ * Code Markdown editor with file attachment support.
+ * Shows how to enable the paperclip ("Attach file") button in the markdown toolbar.
+ * When uploading an image, it smartly inserts an image tag `![alt](url)`, for videos it inserts
+ * `<video src="url" controls></video>`, and for other files it inserts a link `[name](url)`.
+ * If upload is not configured, the attach file button is not displayed.
+ *
+ * ### Configuration Options
+ *
+ * **1. HTTP Endpoint**:
+ * ```json
+ * {
+ *   "type": "string",
+ *   "format": "markdown",
+ *   "options": {
+ *     "resolver": "ace",
+ *     "markdownToolbar": {
+ *       "upload": {
+ *         "endpoint": "https://api.example.com/upload",
+ *         "fieldName": "file"
+ *       }
+ *     }
+ *   }
+ * }
+ * ```
+ *
+ * **2. Custom Async Upload Function** (e.g. GitHub API, S3 presigned URL):
+ * ```javascript
+ * const schema = {
+ *   type: "object",
+ *   properties: {
+ *     markdown: {
+ *       type: "string",
+ *       format: "markdown",
+ *       options: {
+ *         resolver: "ace",
+ *         markdownToolbar: {
+ *           upload: async (file, editorInstance) => {
+ *             // Custom upload logic (e.g. GitHub contents API or cloud storage)
+ *             const uploadedUrl = await myCustomUploader(file);
+ *             return uploadedUrl; // or { fileUrl: uploadedUrl }
+ *           }
+ *         }
+ *       }
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * **3. Using `defaults.callbacks.upload`** (for pure JSON schemas referencing handlers by name):
+ * ```json
+ * // In schema:
+ * "options": {
+ *   "resolver": "ace",
+ *   "markdownToolbar": {
+ *     "upload": { "upload_handler": "myUploadHandler" }
+ *   }
+ * }
+ * ```
+ * ```javascript
+ * // In element .defaults:
+ * const defaults = {
+ *   callbacks: {
+ *     upload: {
+ *       myUploadHandler: async (jseditor, path, file, cbs) => {
+ *         try {
+ *           const url = await uploadToStorage(file);
+ *           cbs.success(url);
+ *         } catch (err) {
+ *           cbs.failure(err.message);
+ *         }
+ *       }
+ *     }
+ *   }
+ * };
+ * ```
+ */
+export const CodeMarkdownToolbarUpload = CodeMarkdownToolbarUploadStory;
+
+/**
+ * Buttons Editor example. Renders a custom button group input based on enum values.
+ * Demonstrates custom input integration and enum handling.
+ */
+export const ButtonsEditor = ButtonsEditorStory;
+
+/**
+ * MinMax Editor example. Renders a custom min-max range input.
+ * Demonstrates custom input integration for range selection.
+ */
+export const MinMaxEditor = MinMaxEditorStory;
+
+/**
+ * Binary Checkbox Editor example. Renders a custom checkbox that returns 0 or 1.
+ * Demonstrates custom input integration for binary values.
+ */
+export const BinaryCheckboxEditor = BinaryCheckboxEditorStory;
+
+/**
+ * Bounding Box example. Allows users to select a bounding box as a form input.
+ * Demonstrates spatial input integration with drawtools.
+ */
+export const BoundingBox = BoundingBoxStory;
+
+/**
+ * Polygon example. Allows users to draw polygons as a form input.
+ * Demonstrates spatial input integration with drawtools.
+ */
+export const Polygons = PolygonStory;
+
+/**
+ * Point example. Allows users to select points as a form input.
+ * Demonstrates spatial input integration with drawtools.
+ */
+export const Points = PointStory;
+
+/**
+ * LineString example. Allows users to draw lines as a form input.
+ * Demonstrates spatial input integration with drawtools.
+ */
+export const Line = LineStory;
+
+/**
+ * Feature Selection example. Allows users to select features from a map as a form input.
+ * Demonstrates integration with eox-map and spatial feature selection.
+ * Using the format `features` in the schema allows multiple features to be selected and returns values
+ * in an array if features, whereas the format `feature` allows a single feature to be selected and returned.
+ */
+export const FeatureSelection = FeatureSelectionStory;
+
+/**
+ * WKT example. Returns drawn features as WKT strings.
+ * Demonstrates output format customization for spatial inputs.
+ */
+export const WKT = WKTStory;
+
+/**
+ * GeoJSON example. Returns drawn features as GeoJSON.
+ * Demonstrates output format customization for spatial inputs.
+ */
+export const Geojson = GeoJSONStory;
+
+/**
+ * Flex Layout example. Demonstrates how to use flex layout for arranging form elements side-by-side.
+ * Shows how to configure the layout of the form using schema options.
+ */
+export const FlexLayout = FlexLayoutStory;
+
+/**
+ * Custom Editor Interfaces example. Shows how to create custom form inputs for json-editor.
+ * Demonstrates extensibility via custom editor interfaces based on the JSONEditor.AbstractEditor.
+ */
+export const CustomEditorInterfaces = CustomEditorInterfacesStory;
+
+/**
+ * Defaults example. Demonstrates how to configure JSONEditor defaults.
+ * Shows how to implement a custom upload handler using the `defaults` property.
+ */
+export const Defaults = DefaultsStory;
+
+/**
+ * Steps Editor example. Renders a multi-step accordion wizard using the `"format": "steps"` custom editor.
+ * Each child property of the object becomes a selectable step. Steps support dependencies
+ * (`options.dependsOn`), auto-complete (`options.autoComplete`), disabled labels
+ * (`options.disabledLabel`), and card grid sizing via `options.grid_columns`.
+ *
+ * Example usage:
+ * ```html
+ * <eox-jsonform .schema=${
+ *   {
+ *     type: "object",
+ *     format: "steps",
+ *     properties: {
+ *       year: {
+ *         type: "string", title: "Choose Year",
+ *         enum: ["2024", "2023"],
+ *         options: { grid_columns: 3 }
+ *       },
+ *       product: {
+ *         type: "string", title: "Choose Product",
+ *         enum: ["cloudless-rgb"],
+ *         options: { dependsOn: "year", disabledLabel: "Select a year first" }
+ *       }
+ *     }
+ *   }
+ * }></eox-jsonform>
+ * ```
+ */
+export const StepsEditor = StepsEditorStory;
+
+/**
+ * Branching example with `anyOf` / `oneOf`. Demonstrates multi-variant schemas with `"keep_oneof_values": false`
+ * in options to ensure clean default resets across branch switches (avoiding stale value/slider bleeding),
+ * minmax sliders, dynamic watchers, and string template interpolation.
+ */
+export const Branching = BranchingStory;
+
+/**
+ * Unstyled example. Renders the form without default styles.
+ * Demonstrates style customization and unstyled rendering.
+ */
+export const Unstyled = UnStyledStory;

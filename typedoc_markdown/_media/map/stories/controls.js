@@ -1,0 +1,45 @@
+/**
+ * Renders different `Controls` for the `eox-map` using control config
+ *
+ * @returns {object} The story configuration with arguments for the component.
+ */
+const ControlsStory = {
+  args: {
+    controls: {
+      GlobeSwitcher: {},
+      Zoom: {},
+      Attribution: {},
+      FullScreen: {},
+      Rotate: {},
+      OverviewMap: {
+        layers: [
+          {
+            type: "Tile",
+            properties: {
+              id: "overviewMap",
+            },
+            source: {
+              type: "OSM",
+            },
+          },
+        ],
+      },
+      MousePosition: {},
+      ScaleLine: {},
+      Geolocation: {},
+    },
+    layers: [
+      {
+        type: "Tile",
+        properties: {
+          id: "customId",
+        },
+        source: {
+          type: "OSM",
+        },
+      },
+    ],
+  },
+};
+
+export default ControlsStory;

@@ -1,0 +1,185 @@
+import { LitElement, html } from "lit";
+import { when } from "lit/directives/when.js";
+import _debounce from "lodash.debounce";
+import { updateLayerSlice } from "../helpers/handle-datetime-update";
+
+/**
+ * `EOxLayerControlLayerDatetime` is a component that handles date time options for layers using eox-timecontrol.
+ *  It triggers an event of the currently selected datetime value; allowing users to show and update a specific layer for a specific time.
+ *
+ *
+ * @element eox-layercontrol-layer-datetime
+ * @augments LitElement
+ */
+export class EOxLayerControlLayerDatetime extends LitElement {
+  // Define static properties for the component
+  static properties = {
+    unstyled: { type: Boolean },
+    noShadow: { type: Boolean },
+    layerDatetime: { attribute: false },
+    layer: { attribute: false },
+  };
+
+  constructor() {
+    super();
+
+    /**
+     * Render the element without additional styles
+     *
+     * @type {boolean}
+     */
+    this.unstyled = false;
+
+    /**
+     * Renders the element without a shadow root
+     *
+     * @type {boolean}
+     */
+    this.noShadow = false;
+
+    /**
+     * Layer config for eox-jsonform
+     *
+     * @type {{
+     *   play?: boolean;
+     *   showUTC?: boolean;
+     *   slider?: boolean;
+     *   navigation?: boolean;
+     *   currentStep: string|number;
+     *   controlValues: (string|number)[];
+     *   displayFormat?: string;
+     *   animateOnClickInterval?: string;
+     * }}
+     */
+    this.layerDatetime = null;
+
+    /**
+     * The native OL layer
+     *
+     * @type {import("ol/layer").Layer}
+     * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_layer_Layer-Layer.html}
+     */
+    this.layer = null;
+  }
+
+  /**
+   * Overrides createRenderRoot to handle shadow DOM creation based on the noShadow property.
+   */
+  createRenderRoot() {
+    return this.noShadow ? this : super.createRenderRoot();
+  }
+
+  disconnectedCallback() {
+    // runs a pending slice update before removal
+    this.#updateSlice.flush();
+    super.disconnectedCallback();
+  }
+
+  #updateSlice = _debounce(updateLayerSlice, 300);
+
+  /**
+   * Handles timecontrol Stepchange &
+   * triggers `datetime:updated` event on step change
+   *
+   * @param {CustomEvent<{date:string[]}> & { isUser?: boolean }} evt
+   **/
+  #handleStepChange(evt) {
+    evt.stopPropagation();
+    const dateObj = new Date(evt.detail.date[0]);
+
+    // Check if configuration implies datetime (ISO strings)
+    const isDatetimeConfig = this.layerDatetime.controlValues?.some(
+      (v) => typeof v === "string" && v.includes("T"),
+    );
+
+    let currentStep;
+    if (isDatetimeConfig) {
+      currentStep = dateObj.toISOString();
+    } else {
+      const formatDate = (d) =>
+        `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      currentStep = formatDate(dateObj);
+    }
+    if (currentStep === this.layerDatetime.currentStep) {
+      return;
+    }
+
+    const event = Object.assign(
+      new CustomEvent("datetime:updated", {
+        bubbles: true,
+        composed: true,
+        detail: {
+          datetime: currentStep,
+          layer: this.layer,
+        },
+      }),
+      { isUser: evt.isUser === true },
+    );
+    /**
+     * Fires datetime:updated with the selected datetime and layer.
+     * Forwards user attribution synchronously without emitting child activity.
+     */
+    this.dispatchEvent(event);
+
+    this.#updateSlice(this.layer, currentStep);
+
+    this.layerDatetime.currentStep = currentStep;
+    this.requestUpdate();
+  }
+
+  /**
+   * Renders a Time Control for datetime options of a layer.
+   */
+  render() {
+    if (!customElements.get("eox-timecontrol")) {
+      console.error(
+        "Please import @eox/timecontrol in order to use layerDatetime",
+      );
+    }
+    return html`
+      <style>
+        ${this.#styleBasic}
+        ${!this.unstyled && this.#styleEOX}
+      </style>
+      ${when(
+        this.layerDatetime?.controlValues,
+        () => html`
+          <eox-timecontrol
+            .initDate=${this.layerDatetime.currentStep
+              ? [this.layerDatetime.currentStep]
+              : undefined}
+            .controlValues=${[
+              {
+                id: this.layer.get("id"),
+                name: this.layer.get("name") || this.layer.get("title"),
+                timeControlValues: this.layerDatetime.controlValues.map(
+                  (value) => ({ date: value }),
+                ),
+              },
+            ]}
+            @select=${this.#handleStepChange}
+            @eox:activity=${(/** @type {Event} */ e) => e.stopPropagation()}
+            .showUTC=${this.layerDatetime.showUTC || false}
+          >
+            <eox-timecontrol-date
+              .navigation=${this.layerDatetime.navigation ?? false}
+              .format=${this.layerDatetime.displayFormat}
+            ></eox-timecontrol-date>
+            <eox-timecontrol-slider
+              animate-onclick-interval="${this.layerDatetime
+                .animateOnClickInterval ?? "0.3s"}"
+            ></eox-timecontrol-slider>
+          </eox-timecontrol>
+        `,
+      )}
+    `;
+  }
+
+  #styleBasic = ``;
+  #styleEOX = ``;
+}
+
+customElements.define(
+  "eox-layercontrol-layer-datetime",
+  EOxLayerControlLayerDatetime,
+);

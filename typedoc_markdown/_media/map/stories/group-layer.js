@@ -1,0 +1,49 @@
+/**
+ * Renders `Group` layer which contains multiple layers in a group
+ *
+ * @returns {object} The story configuration with arguments for the component.
+ */
+const GroupLayerStory = {
+  args: {
+    layers: [
+      {
+        type: "Group",
+        properties: {
+          id: "group",
+        },
+        layers: [
+          {
+            type: "Group",
+            properties: {
+              id: "groupLayerInsideGroup",
+            },
+            layers: [
+              {
+                type: "Tile",
+                properties: {
+                  id: "layerInsideGroupInsideGroup",
+                },
+                source: {
+                  type: "OSM",
+                },
+              },
+            ],
+          },
+          {
+            type: "Vector",
+            properties: {
+              id: "regions",
+            },
+            source: {
+              type: "Vector",
+              url: "https://openlayers.org/data/vector/ecoregions.json",
+              format: "GeoJSON",
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+
+export default GroupLayerStory;

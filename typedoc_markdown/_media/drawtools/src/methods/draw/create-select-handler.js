@@ -1,0 +1,61 @@
+/**
+ * Factory function to create a select event handler
+ * @param {import("../../main").EOxDrawTools} EoxDrawTool - The drawing tool instance.
+ */
+import { toFeature } from "ol/render/Feature";
+import { dispatchElementEvent } from "@eox/elements-utils";
+
+const createSelectHandler = (EoxDrawTool) => {
+  /**
+   * Copy the selected feature to the draw layer
+   * and dispatches an event to add the feature to the map.
+   *
+   * @param {*} e
+   */
+  const selectHandler = (e) => {
+    if (e?.detail.id !== "SelectLayerClickInteraction" || !e.detail.feature) {
+      return;
+    }
+    // Vector tiles geometries do not have the getCoordinates method
+    // only dispatch event if the feature has the getCoordinates method
+    if (typeof e.detail.feature.getGeometry().getCoordinates !== "function") {
+      e.detail.feature = toFeature(e.detail.feature);
+    }
+    EoxDrawTool.drawLayer.getSource().addFeature(e.detail.feature);
+    const event = dispatchElementEvent(EoxDrawTool.eoxMap, "addfeatures", {
+      detail: e.detail,
+      activity: false,
+      action: "addfeatures",
+    });
+    event.isUser = true;
+  };
+
+  /**
+   * Adds the selection event to the map
+   **/
+  const addSelectionEvent = () => {
+    if (EoxDrawTool.layerId) {
+      const hoverInteraction =
+        EoxDrawTool.eoxMap.selectInteractions["SelectLayerHoverInteraction"];
+      hoverInteraction?.setActive(true);
+      EoxDrawTool.eoxMap.addEventListener("select", selectHandler);
+    }
+  };
+
+  /**
+   * Removes the selection event from the map and resets the selected features
+   **/
+  const removeSelectionEvent = () => {
+    const hoverInteraction =
+      EoxDrawTool.eoxMap.selectInteractions?.["SelectLayerHoverInteraction"];
+    if (hoverInteraction) {
+      hoverInteraction.selectedFids = [];
+      hoverInteraction?.setActive(false);
+    }
+    EoxDrawTool.eoxMap.removeEventListener("select", selectHandler);
+  };
+
+  return { addSelectionEvent, removeSelectionEvent };
+};
+
+export default createSelectHandler;

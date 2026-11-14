@@ -1,0 +1,55 @@
+// Exported test methods
+
+export {
+  programmaticActivityTest,
+  inputActivityTest,
+  noOpActivityTest,
+  arrayActivityTest,
+  customButtonActivityTest,
+  genericButtonActivityTest,
+  submitButtonAttributionTest,
+  recreatedActivityTest,
+  openLayersFeatureValueTest,
+} from "./activity";
+
+export { default as loadJsonFormTest } from "./load-jsonform";
+export { default as loadJsonFormNoShadowTest } from "./load-jsonform-no-shadow";
+export { default as loadExternalSchemaTest } from "./load-external-schema";
+export { default as loadExternalValueTest } from "./load-external-value";
+export { default as loadReRenderFormOnChangeTest } from "./re-render-form-on-change";
+export { default as loadMarkdownTest } from "./load-markdown";
+export {
+  default as loadCodeMarkdownToolbarTest,
+  loadCodeMarkdownToolbarStickyTest,
+  loadCodeMarkdownToolbarUnstyledTest,
+} from "./load-code-markdown-toolbar";
+export {
+  default as loadCodeMarkdownToolbarUploadTest,
+  loadCodeMarkdownToolbarPdfUploadTest,
+  loadCodeMarkdownToolbarVideoUploadTest,
+  loadCodeMarkdownToolbarCustomHandlerTest,
+} from "./load-code-markdown-toolbar-upload";
+export { default as loadAceMarkdownDisableUndoRedoTest } from "./load-code-markdown-disable-undo-redo";
+export { default as loadCodeTest } from "./load-code";
+export { default as loadCodeHTMLTest } from "./load-code-html";
+export { default as triggerChangeEventTest } from "./trigger-change-event";
+export { default as loadValuesTest } from "./load-values";
+export { default as loadMisMatchingValuesTest } from "./load-mismatching-values";
+export { default as renderDrawtools } from "./render-drawtools";
+export { default as loadCustomEditorInterfaceTest } from "./load-custom-editor-interface";
+export { default as loadSubmitButtonTest } from "./submit-button";
+export { default as loadShowOptInPropertiesTest } from "./load-show-opt-in-properties";
+export { default as loadButtonsEditorTest } from "./load-buttons-editor";
+export { default as loadBinaryCheckboxTest } from "./load-binary-checkbox";
+export { default as loadSpatialValuesTest } from "./load-spatial-values";
+export { default as validationBehaviorTest } from "./validation-behavior";
+export { default as defaultsTest } from "./defaults";
+export { default as loadGridTest, loadGridStrictTest } from "./load-grid";
+export {
+  default as loadStepsEditorTest,
+  loadStepsEditorInteractionTest,
+  loadStepsEditorCascadingResetTest,
+  loadStepsEditorConditionalTest,
+} from "./load-steps-editor";
+export { default as loadMinMaxEditorTest } from "./load-minmax-editor";
+export { default as loadMinMaxBranchSwitchTest } from "./load-minmax-branch-switch";
