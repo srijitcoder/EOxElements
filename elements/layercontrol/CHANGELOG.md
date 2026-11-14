@@ -1,5 +1,54 @@
 # Changelog
 
+## [1.11.0](https://github.com/srijitcoder/EOxElements/compare/layercontrol-v1.10.1...layercontrol-v1.11.0) (2026-11-14)
+
+
+### Features
+
+* Auto-expand tools ([#2273](https://github.com/srijitcoder/EOxElements/issues/2273)) ([fe4d24c](https://github.com/srijitcoder/EOxElements/commit/fe4d24c15692115b1da8161463a94b94d53e5e8d))
+* Configurable animate on timecontrol slider ([#2104](https://github.com/srijitcoder/EOxElements/issues/2104)) ([85e6272](https://github.com/srijitcoder/EOxElements/commit/85e62726c6e88bf087464334bba4f1bbee826b17))
+* Export updateVectorLayerStyle function ([#2327](https://github.com/srijitcoder/EOxElements/issues/2327)) ([e1b91d0](https://github.com/srijitcoder/EOxElements/commit/e1b91d0042a776dcac7ebce3d791aaf6fc8ad882))
+* GeoZarr support ([#2497](https://github.com/srijitcoder/EOxElements/issues/2497)) ([193e619](https://github.com/srijitcoder/EOxElements/commit/193e619a4c3af9b9c390d309958ccb9367e4ff63))
+* Layercontrol dynamic legend colormap with a registry ([#2391](https://github.com/srijitcoder/EOxElements/issues/2391)) ([a0e88e0](https://github.com/srijitcoder/EOxElements/commit/a0e88e0dfd7afcf16487065c1de24e3e29e1dd12))
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+* Support for UTC datetime in `eox-layercontrol-layer-datetime` ([#2265](https://github.com/srijitcoder/EOxElements/issues/2265)) ([35f7c68](https://github.com/srijitcoder/EOxElements/commit/35f7c6811b8dae3d46eeadc0cad9d76490835617))
+* Support multidimensional geozarr layer configuration and band switching ([#2570](https://github.com/srijitcoder/EOxElements/issues/2570)) ([2f5b441](https://github.com/srijitcoder/EOxElements/commit/2f5b4413fbe4b3e7640430ab5314578b5be4365b))
+* Support stringified JSON for attributes ([#2304](https://github.com/srijitcoder/EOxElements/issues/2304)) ([f30e5b0](https://github.com/srijitcoder/EOxElements/commit/f30e5b07730ba10acb1b07237856e9675c2faf67))
+* Update wms and wmts params by layercontrol config change ([#2381](https://github.com/srijitcoder/EOxElements/issues/2381)) ([b24111c](https://github.com/srijitcoder/EOxElements/commit/b24111cd227933c7bb8d712355d4a1ce79493307))
+
+
+### Bug Fixes
+
+* Alternative update without setting up or checking the zarr layer ([#2555](https://github.com/srijitcoder/EOxElements/issues/2555)) ([7f24b7b](https://github.com/srijitcoder/EOxElements/commit/7f24b7b04690e3b22707ccb7f967c1d3c8a33ef6))
+* AnyOf config form fields when no start values exist ([#2594](https://github.com/srijitcoder/EOxElements/issues/2594)) ([2da5f37](https://github.com/srijitcoder/EOxElements/commit/2da5f37c57cbca061919cf1b2dc9cbfb3bab5745))
+* Debounce time slice updates in the layer datetime tool ([#2590](https://github.com/srijitcoder/EOxElements/issues/2590)) ([3677b05](https://github.com/srijitcoder/EOxElements/commit/3677b0503c81d79686c9064763fa0a5d4e4b6a98))
+* Hide the datetime tool when layerDatetime has no`controlValues` ([#2606](https://github.com/srijitcoder/EOxElements/issues/2606)) ([40884c0](https://github.com/srijitcoder/EOxElements/commit/40884c0495144dca6386f8b9e903477cbe8622df))
+* Increase version of color-legend-element to 1.4.0 ([#2289](https://github.com/srijitcoder/EOxElements/issues/2289)) ([6a49d66](https://github.com/srijitcoder/EOxElements/commit/6a49d66ca5af71e79a0d5fd22f820fffab801adb))
+* Jsonform round based on step for minmaxslider ([#2472](https://github.com/srijitcoder/EOxElements/issues/2472)) ([8f766be](https://github.com/srijitcoder/EOxElements/commit/8f766be8e337025fdc67c0190418cd4e41a64bd7))
+* Layer datetime emission ([#2092](https://github.com/srijitcoder/EOxElements/issues/2092)) ([a65da8b](https://github.com/srijitcoder/EOxElements/commit/a65da8babca7f94be358183c34af80880b8217c6))
+* LayerConfig removeProperties behaviour ([#2445](https://github.com/srijitcoder/EOxElements/issues/2445)) ([5207e84](https://github.com/srijitcoder/EOxElements/commit/5207e84b3882f4df8a8ddd1dd6ae92b80b786825))
+* Remove tileUrl params on date change ([#2160](https://github.com/srijitcoder/EOxElements/issues/2160)) ([6cd023e](https://github.com/srijitcoder/EOxElements/commit/6cd023ec371febfad8861780137b25582ceda8c8))
+* Seed `layerConfig` start values for anyOf/oneOf/allOf schemas ([#2447](https://github.com/srijitcoder/EOxElements/issues/2447)) ([2e85928](https://github.com/srijitcoder/EOxElements/commit/2e859287312853baafbe2b7e0ae99a6e36b89380))
+* **style:** Layer type visibility css var ([#2286](https://github.com/srijitcoder/EOxElements/issues/2286)) ([0a1b53b](https://github.com/srijitcoder/EOxElements/commit/0a1b53b214df5302b1c0d9aeb6330d2afcbab48d))
+* **style:** Remove hardcoded tools background ([#2234](https://github.com/srijitcoder/EOxElements/issues/2234)) ([26850ec](https://github.com/srijitcoder/EOxElements/commit/26850ec357bee59eecdb6352c4e15cd98840286b))
+* **style:** Rotate layercontrol tools button ([#2272](https://github.com/srijitcoder/EOxElements/issues/2272)) ([1c17ddd](https://github.com/srijitcoder/EOxElements/commit/1c17ddd2fb369a6894d942cb20fc4cdddd23d99b))
+* **style:** Vertical padding for list items and tools ([#2271](https://github.com/srijitcoder/EOxElements/issues/2271)) ([34d6fe2](https://github.com/srijitcoder/EOxElements/commit/34d6fe2a57422dd86dec49e9feb975568c6b7ae4))
+* Update 3D (XYZ) layers url's when params changed in layerConfig ([#2215](https://github.com/srijitcoder/EOxElements/issues/2215)) ([d5e771b](https://github.com/srijitcoder/EOxElements/commit/d5e771b6bc1a6dbd4ad6026b5f4374e7d0e9a140))
+* Update cached tile url after a source update ([#2659](https://github.com/srijitcoder/EOxElements/issues/2659)) ([10ccc6e](https://github.com/srijitcoder/EOxElements/commit/10ccc6e416662c538250db21c644bfd445590aad))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eox/elements-utils bumped from ^1.2.0 to ^1.3.0
+  * devDependencies
+    * @eox/jsonform bumped from * to 1.15.0
+    * @eox/map bumped from * to 2.11.0
+  * peerDependencies
+    * @eox/jsonform bumped from * to 1.15.0
+    * @eox/timecontrol bumped from >=2.0.0 to >=2.11.0
+
 ## [1.10.1](https://github.com/EOX-A/EOxElements/compare/layercontrol-v1.10.0...layercontrol-v1.10.1) (2026-10-20)
 
 

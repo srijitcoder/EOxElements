@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.3.0](https://github.com/srijitcoder/EOxElements/compare/stacinfo-v1.2.1...stacinfo-v1.3.0) (2026-11-14)
+
+
+### Features
+
+* Parse Items top level properties & enable passing filter objects  ([#2150](https://github.com/srijitcoder/EOxElements/issues/2150)) ([f8081b6](https://github.com/srijitcoder/EOxElements/commit/f8081b6889171818971f4edabf3ea2a9960a0ae6))
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+* Support stringified JSON for attributes ([#2304](https://github.com/srijitcoder/EOxElements/issues/2304)) ([f30e5b0](https://github.com/srijitcoder/EOxElements/commit/f30e5b07730ba10acb1b07237856e9675c2faf67))
+
+
+### Bug Fixes
+
+* Emit click:link event and format updated property in stacinfo ([#2646](https://github.com/srijitcoder/EOxElements/issues/2646)) ([d680f29](https://github.com/srijitcoder/EOxElements/commit/d680f29bd554257257bd9ab56df5ccd0ccc2d9d6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eox/elements-utils bumped from ^1.2.0 to ^1.3.0
+
 ## [1.2.1](https://github.com/EOX-A/EOxElements/compare/stacinfo-v1.2.0...stacinfo-v1.2.1) (2026-11-09)
 
 

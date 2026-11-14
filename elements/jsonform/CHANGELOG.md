@@ -1,5 +1,38 @@
 # Changelog
 
+## [1.15.0](https://github.com/srijitcoder/EOxElements/compare/jsonform-v1.14.2...jsonform-v1.15.0) (2026-11-14)
+
+
+### Features
+
+* Add file attachment and custom button to markdown toolbar ([#2511](https://github.com/srijitcoder/EOxElements/issues/2511)) ([ffa416d](https://github.com/srijitcoder/EOxElements/commit/ffa416ddbc6e2b9202f2c1686718aa2422f08f4f))
+* Custom ace editor markdown toolbar ([#2138](https://github.com/srijitcoder/EOxElements/issues/2138)) ([c203a82](https://github.com/srijitcoder/EOxElements/commit/c203a82dff62933dcf3b6dacac7900792d08ef18))
+* Disable undo and redo in ace editor ([#2508](https://github.com/srijitcoder/EOxElements/issues/2508)) ([a4dd2e3](https://github.com/srijitcoder/EOxElements/commit/a4dd2e3cee8a5e83afc4d6a41bc482ef31074a2c))
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+* Steps editor ([#2199](https://github.com/srijitcoder/EOxElements/issues/2199)) ([68f16c9](https://github.com/srijitcoder/EOxElements/commit/68f16c9df6d1cd357cfce648aa21cf803bd6a9f9))
+* Support grid layout ([#2112](https://github.com/srijitcoder/EOxElements/issues/2112)) ([ec20e8a](https://github.com/srijitcoder/EOxElements/commit/ec20e8adc2eed67efb96b161fe69ade30dd129b3))
+* Support stringified JSON for attributes ([#2304](https://github.com/srijitcoder/EOxElements/issues/2304)) ([f30e5b0](https://github.com/srijitcoder/EOxElements/commit/f30e5b07730ba10acb1b07237856e9675c2faf67))
+
+
+### Bug Fixes
+
+* Bypass DOMPurify for code/markdown fields ([#2370](https://github.com/srijitcoder/EOxElements/issues/2370)) ([13fc98b](https://github.com/srijitcoder/EOxElements/commit/13fc98b66d6b69b51641837f8770d4282f11147b))
+* Jsonform round based on step for minmaxslider ([#2472](https://github.com/srijitcoder/EOxElements/issues/2472)) ([8f766be](https://github.com/srijitcoder/EOxElements/commit/8f766be8e337025fdc67c0190418cd4e41a64bd7))
+* Make agents more aware about jsonform and some of relevant options ([#2493](https://github.com/srijitcoder/EOxElements/issues/2493)) ([319a043](https://github.com/srijitcoder/EOxElements/commit/319a04388a1e81658efd196e9ece7a526a92ceca))
+* Minmax slider precision rounding and branch defaults ([#2492](https://github.com/srijitcoder/EOxElements/issues/2492)) ([1cc1ef8](https://github.com/srijitcoder/EOxElements/commit/1cc1ef87e70c57799fb383ad83acfca445839e9f))
+* Remove tileUrl params on date change ([#2160](https://github.com/srijitcoder/EOxElements/issues/2160)) ([6cd023e](https://github.com/srijitcoder/EOxElements/commit/6cd023ec371febfad8861780137b25582ceda8c8))
+* Sticky ace toolbar ([#2556](https://github.com/srijitcoder/EOxElements/issues/2556)) ([d738872](https://github.com/srijitcoder/EOxElements/commit/d7388720cbfa7147ac926fa82884ad79aa1deb70))
+* Style for array item multiselect ([#2586](https://github.com/srijitcoder/EOxElements/issues/2586)) ([c299abe](https://github.com/srijitcoder/EOxElements/commit/c299abe62c5f2cb22ccec831944bff9f5681276f))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eox/elements-utils bumped from ^1.2.0 to ^1.3.0
+  * devDependencies
+    * @eox/map bumped from * to 2.11.0
+
 ## [1.14.2](https://github.com/EOX-A/EOxElements/compare/jsonform-v1.14.1...jsonform-v1.14.2) (2026-10-15)
 
 

@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.11.0](https://github.com/srijitcoder/EOxElements/compare/storytelling-v1.14.0...storytelling-v1.11.0) (2026-11-14)
+
+
+### Features
+
+* Introduce DOM morphing & improve resource management ([#2410](https://github.com/srijitcoder/EOxElements/issues/2410)) ([91117b8](https://github.com/srijitcoder/EOxElements/commit/91117b85fba64257291767d96eae406c48253fe0))
+* Map loading indicator ([#2420](https://github.com/srijitcoder/EOxElements/issues/2420)) ([67d4eca](https://github.com/srijitcoder/EOxElements/commit/67d4ecae707b6494e24ff1900a6f7b041efdbca2))
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+* Support globe tour in storytelling ([#2643](https://github.com/srijitcoder/EOxElements/issues/2643)) ([1c365c2](https://github.com/srijitcoder/EOxElements/commit/1c365c246eb9ea201850e02b363d038673028718))
+
+
+### Bug Fixes
+
+* Prevent event bubble and double upload ([#2099](https://github.com/srijitcoder/EOxElements/issues/2099)) ([9964030](https://github.com/srijitcoder/EOxElements/commit/996403089fb0a1f5c9c8bb931aeac67a05d75837))
+* Timeline re-creation flashing and date selection reset bugs when map layers update dynamically ([#2614](https://github.com/srijitcoder/EOxElements/issues/2614)) ([562124c](https://github.com/srijitcoder/EOxElements/commit/562124c72942f1a2ea64c672a8827cea0494f22a))
+* Type checks for step layers and ignore empty slot change ([#2408](https://github.com/srijitcoder/EOxElements/issues/2408)) ([d652fd5](https://github.com/srijitcoder/EOxElements/commit/d652fd560ac2b3fbc47db237fef0682a3d82b72d))
+
+
+### Miscellaneous Chores
+
+* Deprecate built-in editor ([#2263](https://github.com/srijitcoder/EOxElements/issues/2263)) ([b928473](https://github.com/srijitcoder/EOxElements/commit/b9284735700aa82fdb32566dfcd4807c20bf7630))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eox/elements-utils bumped from ^1.2.0 to ^1.3.0
+  * peerDependencies
+    * @eox/jsonform bumped from * to 1.15.0
+
 ## [1.14.0](https://github.com/EOX-A/EOxElements/compare/storytelling-v1.13.1...storytelling-v1.14.0) (2026-11-09)
 
 

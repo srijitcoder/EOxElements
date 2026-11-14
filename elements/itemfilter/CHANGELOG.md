@@ -1,5 +1,44 @@
 # Changelog
 
+## [1.19.0](https://github.com/srijitcoder/EOxElements/compare/itemfilter-v1.18.0...itemfilter-v1.19.0) (2026-11-14)
+
+
+### Features
+
+* Introduce `fetchFn` for external filter ([#2098](https://github.com/srijitcoder/EOxElements/issues/2098)) ([a496c54](https://github.com/srijitcoder/EOxElements/commit/a496c5404c93cece08bc709ebbcfb737470448ba))
+* Picker UI for date range filter ([#2338](https://github.com/srijitcoder/EOxElements/issues/2338)) ([dfd9921](https://github.com/srijitcoder/EOxElements/commit/dfd99216525e8760e6f887ed3f3e97231c84ed9f))
+* Result sorting ([#2210](https://github.com/srijitcoder/EOxElements/issues/2210)) ([2eb3d4c](https://github.com/srijitcoder/EOxElements/commit/2eb3d4ccfabe21c81b37cb8572002bd38cf56152))
+* Search items from the inline mode input with `inlineSearch` ([#2591](https://github.com/srijitcoder/EOxElements/issues/2591)) ([19241aa](https://github.com/srijitcoder/EOxElements/commit/19241aa8d6a6e739bb4409c7adb4d44843e6f20f))
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+* Support stringified JSON for attributes ([#2304](https://github.com/srijitcoder/EOxElements/issues/2304)) ([f30e5b0](https://github.com/srijitcoder/EOxElements/commit/f30e5b07730ba10acb1b07237856e9675c2faf67))
+
+
+### Bug Fixes
+
+* Allow selector search to match end of long option names ([#2437](https://github.com/srijitcoder/EOxElements/issues/2437)) ([f667d96](https://github.com/srijitcoder/EOxElements/commit/f667d9603d4617a4d707ec2185c19b0a7f63f2f3))
+* Date range filter in external search mode ([#2344](https://github.com/srijitcoder/EOxElements/issues/2344)) ([39bd690](https://github.com/srijitcoder/EOxElements/commit/39bd6909d2d423df1f226a24789ad61d47982032))
+* Date range filter state initialization ([#2364](https://github.com/srijitcoder/EOxElements/issues/2364)) ([f887d6a](https://github.com/srijitcoder/EOxElements/commit/f887d6a7779d80fc5f9c977f4da94c8d45eccad4))
+* Display date picker in inline mode within filter div ([#2342](https://github.com/srijitcoder/EOxElements/issues/2342)) ([ec4b6eb](https://github.com/srijitcoder/EOxElements/commit/ec4b6ebeb4d7c7fa067d740d3aa24e8bc5fd0898))
+* Filter state loss on mode toggle ([#2347](https://github.com/srijitcoder/EOxElements/issues/2347)) ([965da66](https://github.com/srijitcoder/EOxElements/commit/965da664ac09a5cf57c9486e9899af318cc03dae))
+* Prevent range filters from initializing as dirty ([6b9aec0](https://github.com/srijitcoder/EOxElements/commit/6b9aec0fa5137c15f7d9736a53e167084479fe5c))
+* **style:** Handle long titles in filter options and search results ([#2458](https://github.com/srijitcoder/EOxElements/issues/2458)) ([4b38e72](https://github.com/srijitcoder/EOxElements/commit/4b38e725594d84756372837d1a8b5b9afa4f0849))
+* **style:** Harmonize list padding ([#2345](https://github.com/srijitcoder/EOxElements/issues/2345)) ([2c08073](https://github.com/srijitcoder/EOxElements/commit/2c08073990353560a5574f0f536e6f85fa93760a))
+* **style:** Harmonize text input fields ([#2346](https://github.com/srijitcoder/EOxElements/issues/2346)) ([4844f03](https://github.com/srijitcoder/EOxElements/commit/4844f03af57eb310c225b718a127f1726813c245))
+* **style:** Increase max-height of expanded filter container to 400px ([#2367](https://github.com/srijitcoder/EOxElements/issues/2367)) ([50fa9d7](https://github.com/srijitcoder/EOxElements/commit/50fa9d765abc069426d921dfb551c9feb57dc78e))
+* **style:** Sizing of spatial filter radio buttons ([#2315](https://github.com/srijitcoder/EOxElements/issues/2315)) ([219558b](https://github.com/srijitcoder/EOxElements/commit/219558b5a9590513626aa4a184588d11981dffc3))
+* **style:** Use internal CSS vars in order to not break child element shadow roots ([#2314](https://github.com/srijitcoder/EOxElements/issues/2314)) ([1bccc65](https://github.com/srijitcoder/EOxElements/commit/1bccc65c3dc070c7ccee7dfbef1e4e65ca5ed9b5))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eox/elements-utils bumped from ^1.2.0 to ^1.3.0
+  * peerDependencies
+    * @eox/layout bumped from * to 1.3.0
+    * @eox/map bumped from >=2.0.0 || >=2.1.0-dev.1 to >=2.11.0
+    * @eox/timecontrol bumped from >=2.0.0 to >=2.11.0
+
 ## [1.18.0](https://github.com/EOX-A/EOxElements/compare/itemfilter-v1.17.5...itemfilter-v1.18.0) (2026-10-20)
 
 

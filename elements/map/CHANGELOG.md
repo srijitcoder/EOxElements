@@ -1,5 +1,51 @@
 # Changelog
 
+## [2.11.0](https://github.com/srijitcoder/EOxElements/compare/map-v2.10.0...map-v2.11.0) (2026-11-14)
+
+
+### Features
+
+* 3D globe controls ([#2101](https://github.com/srijitcoder/EOxElements/issues/2101)) ([de70738](https://github.com/srijitcoder/EOxElements/commit/de7073884d9abd4e384e3ba8df3412f7b7cd82c9))
+* 3d globe LOD option ([#2145](https://github.com/srijitcoder/EOxElements/issues/2145)) ([af77a6c](https://github.com/srijitcoder/EOxElements/commit/af77a6caca5cf23fc02ce61f529dbf1742c1878f))
+* 3d globe terrain option ([#2136](https://github.com/srijitcoder/EOxElements/issues/2136)) ([67b36dc](https://github.com/srijitcoder/EOxElements/commit/67b36dc61137f067a18ad3cb2e9302f0f683b56c))
+* 3D support (basic) for vector styles ([#2121](https://github.com/srijitcoder/EOxElements/issues/2121)) ([c52a363](https://github.com/srijitcoder/EOxElements/commit/c52a363c4b6cf6ff42554fdf88eb2889b497ddff))
+* Controls layout and resize handling ([#2267](https://github.com/srijitcoder/EOxElements/issues/2267)) ([c1b563c](https://github.com/srijitcoder/EOxElements/commit/c1b563c0545f58b91b4204777509342099a5fac9))
+* GeoZarr source ([#2040](https://github.com/srijitcoder/EOxElements/issues/2040)) ([2cf0da6](https://github.com/srijitcoder/EOxElements/commit/2cf0da609905f55ba8d7e154d5bd23fc2b157429))
+* GeoZarr source initialization and layer setup ([#2498](https://github.com/srijitcoder/EOxElements/issues/2498)) ([4961397](https://github.com/srijitcoder/EOxElements/commit/4961397d066d95aed2fd039f1ec24cb13de2bbe4))
+* Native GeoTIFF rendering and select interactions in globe mode ([#2630](https://github.com/srijitcoder/EOxElements/issues/2630)) ([5d7a5c0](https://github.com/srijitcoder/EOxElements/commit/5d7a5c0d80275d76b2896f891cb36ca5b6cbc554))
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+* Support inline GeoJSON features in Vector sources ([#2350](https://github.com/srijitcoder/EOxElements/issues/2350)) ([b08e701](https://github.com/srijitcoder/EOxElements/commit/b08e7013640d2194003f44a918a70382978a265a))
+* Support stringified JSON for attributes ([#2304](https://github.com/srijitcoder/EOxElements/issues/2304)) ([f30e5b0](https://github.com/srijitcoder/EOxElements/commit/f30e5b07730ba10acb1b07237856e9675c2faf67))
+* Support url as array in flatgeobuf ([#2124](https://github.com/srijitcoder/EOxElements/issues/2124)) ([0169da2](https://github.com/srijitcoder/EOxElements/commit/0169da272e418aa8a80911b52d9a4db8350bce50))
+* Update wms and wmts params by layercontrol config change ([#2381](https://github.com/srijitcoder/EOxElements/issues/2381)) ([b24111c](https://github.com/srijitcoder/EOxElements/commit/b24111cd227933c7bb8d712355d4a1ce79493307))
+
+
+### Bug Fixes
+
+* Allow GeoZarr time settings ([#2605](https://github.com/srijitcoder/EOxElements/issues/2605)) ([bcf9388](https://github.com/srijitcoder/EOxElements/commit/bcf9388eff74f28acb0f83b1435c5d63fbceac31))
+* Allow tooltip to appear outside the map container ([#2244](https://github.com/srijitcoder/EOxElements/issues/2244)) ([138423d](https://github.com/srijitcoder/EOxElements/commit/138423d5ae4cb6d93572c8abd0a7bbbb46bd255b))
+* Alternative update without setting up or checking the zarr layer ([#2555](https://github.com/srijitcoder/EOxElements/issues/2555)) ([7f24b7b](https://github.com/srijitcoder/EOxElements/commit/7f24b7b04690e3b22707ccb7f967c1d3c8a33ef6))
+* Avoid duplicate vector source loads from `EOxSelectInteraction` ([#2328](https://github.com/srijitcoder/EOxElements/issues/2328)) ([64daece](https://github.com/srijitcoder/EOxElements/commit/64daececf93af200571065e64cf26d683478cfda))
+* Clear duplicate select (click & hover) highlights ([#2397](https://github.com/srijitcoder/EOxElements/issues/2397)) ([1ce97ee](https://github.com/srijitcoder/EOxElements/commit/1ce97eea10792d2f8531b8c57b6a6f7b2b721b12))
+* EoxLayer type declaration ([#2430](https://github.com/srijitcoder/EOxElements/issues/2430)) ([deb724d](https://github.com/srijitcoder/EOxElements/commit/deb724d3784f91ed0eaf3e9e08fd08aa0ad985e0))
+* Eval warning fix ([#2617](https://github.com/srijitcoder/EOxElements/issues/2617)) ([617a557](https://github.com/srijitcoder/EOxElements/commit/617a5574022948ef6007728ffcff53436aee68cc))
+* Fetch the XYZ layer's url from _updatedUrl if existing ([#2268](https://github.com/srijitcoder/EOxElements/issues/2268)) ([fc9b6a5](https://github.com/srijitcoder/EOxElements/commit/fc9b6a5e216bd184cff7688d2417346f6cfdb404))
+* Hide attribution control when empty ([#2396](https://github.com/srijitcoder/EOxElements/issues/2396)) ([2a52afa](https://github.com/srijitcoder/EOxElements/commit/2a52afa1bd60b2547a148abd03c6b60da7af0dfd))
+* Preserve user-provided dimensions in WMTSCapabilities source ([#2161](https://github.com/srijitcoder/EOxElements/issues/2161)) ([a6f909d](https://github.com/srijitcoder/EOxElements/commit/a6f909d5bde6bf6f9ab58bce114ff298d1c9fcb8))
+* Robust FlatGeoBuf bbox calculation for poles and antimeridian crossings ([#2474](https://github.com/srijitcoder/EOxElements/issues/2474)) ([382d8c7](https://github.com/srijitcoder/EOxElements/commit/382d8c7c93fcd6cc48637ddddcaf6825c6401da6))
+* **style:** Css variable for comparison slider background ([#2287](https://github.com/srijitcoder/EOxElements/issues/2287)) ([6bbf194](https://github.com/srijitcoder/EOxElements/commit/6bbf194bda36f81ef70cb0f1105d3b81222a2fd1))
+* Support map syncing across shadow DOM boundaries via global registry ([#2543](https://github.com/srijitcoder/EOxElements/issues/2543)) ([b25222b](https://github.com/srijitcoder/EOxElements/commit/b25222b4105d302a6baf77c8686e930431a3cd03))
+* Update WebGLTile styles on layer update ([#2177](https://github.com/srijitcoder/EOxElements/issues/2177)) ([30fbc86](https://github.com/srijitcoder/EOxElements/commit/30fbc863f91a3e74df037da845c47269d9fdae7d))
+* Use animationOptions config for fitting drawn features ([#2291](https://github.com/srijitcoder/EOxElements/issues/2291)) ([3168c7d](https://github.com/srijitcoder/EOxElements/commit/3168c7d4ebead6f8bf00c164a4df83acc31842e8))
+* ZoomExtent and sync race condition ([#2285](https://github.com/srijitcoder/EOxElements/issues/2285)) ([f845e22](https://github.com/srijitcoder/EOxElements/commit/f845e22fbcc0e80ad378cac0433bc5d494d6fcbc))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eox/elements-utils bumped from ^1.2.0 to ^1.3.0
+
 ## [2.10.0](https://github.com/EOX-A/EOxElements/compare/map-v2.9.0...map-v2.10.0) (2026-11-09)
 
 

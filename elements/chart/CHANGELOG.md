@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.3.0](https://github.com/srijitcoder/EOxElements/compare/chart-v1.2.2...chart-v1.3.0) (2026-11-14)
+
+
+### Features
+
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+* Support stringified JSON for attributes ([#2304](https://github.com/srijitcoder/EOxElements/issues/2304)) ([f30e5b0](https://github.com/srijitcoder/EOxElements/commit/f30e5b07730ba10acb1b07237856e9675c2faf67))
+
+
+### Bug Fixes
+
+* Auto-resize vega view on element and container size changes ([#2542](https://github.com/srijitcoder/EOxElements/issues/2542)) ([1feb028](https://github.com/srijitcoder/EOxElements/commit/1feb0281ae72b446e24af072cd2f5544bf699f4c))
+* Chunk base64 spec encoding to prevent call stack overflow ([#2645](https://github.com/srijitcoder/EOxElements/issues/2645)) ([51b6b9f](https://github.com/srijitcoder/EOxElements/commit/51b6b9fdf7485568e15446a587fb2004676e3356))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eox/elements-utils bumped from ^1.2.0 to ^1.3.0
+
 ## [1.2.2](https://github.com/EOX-A/EOxElements/compare/chart-v1.2.1...chart-v1.2.2) (2026-11-09)
 
 

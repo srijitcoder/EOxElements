@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.0](https://github.com/srijitcoder/EOxElements/compare/elements-utils-v1.2.0...elements-utils-v1.3.0) (2026-11-14)
+
+
+### Features
+
+* Eox-tour element ([#2246](https://github.com/srijitcoder/EOxElements/issues/2246)) ([37e9abf](https://github.com/srijitcoder/EOxElements/commit/37e9abf0d257dfe4d01602dcd695cb1d526d0bbe))
+* Get elements from nested shadow roots ([#2393](https://github.com/srijitcoder/EOxElements/issues/2393)) ([135f063](https://github.com/srijitcoder/EOxElements/commit/135f06343f933fb3d6a56002d8e0ac0b40afaea8))
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+
 ## [1.2.0](https://github.com/EOX-A/EOxElements/compare/elements-utils-v1.1.2...elements-utils-v1.2.0) (2026-06-10)
 
 

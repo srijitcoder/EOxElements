@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.7.0](https://github.com/srijitcoder/EOxElements/compare/drawtools-v1.6.0...drawtools-v1.7.0) (2026-11-14)
+
+
+### Features
+
+* Add removeFeature and removeFeatureByIndex methods ([#2302](https://github.com/srijitcoder/EOxElements/issues/2302)) ([f94170f](https://github.com/srijitcoder/EOxElements/commit/f94170fbb7705ff9528bbd4813defd297872251a))
+* Add stopDrawing method ([#2333](https://github.com/srijitcoder/EOxElements/issues/2333)) ([00d065e](https://github.com/srijitcoder/EOxElements/commit/00d065e747d3e1622e7d34c88cdf5b2a4293005d))
+* Area and length measurements ([#2114](https://github.com/srijitcoder/EOxElements/issues/2114)) ([c271009](https://github.com/srijitcoder/EOxElements/commit/c27100901b18f3108799c450867de3a65fbc0406))
+* Set drawnFeatures programmatically ([#2231](https://github.com/srijitcoder/EOxElements/issues/2231)) ([4635edc](https://github.com/srijitcoder/EOxElements/commit/4635edcf09f5b7fd59339f094836197ee780ff8d))
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+* Support stringified JSON for attributes ([#2304](https://github.com/srijitcoder/EOxElements/issues/2304)) ([f30e5b0](https://github.com/srijitcoder/EOxElements/commit/f30e5b07730ba10acb1b07237856e9675c2faf67))
+
+
+### Bug Fixes
+
+* Prevent duplicate drawupdate events ([#2237](https://github.com/srijitcoder/EOxElements/issues/2237)) ([c4d593e](https://github.com/srijitcoder/EOxElements/commit/c4d593e5e2046a128ad6c56252182388cbc97c6a))
+* Prevent keydown listener accumulation ([#2300](https://github.com/srijitcoder/EOxElements/issues/2300)) ([0ca6f22](https://github.com/srijitcoder/EOxElements/commit/0ca6f2220760f38e59ae5437ae8412f90e97a01f))
+* Resolve broken feature selection when measure and layer-id are active ([#2236](https://github.com/srijitcoder/EOxElements/issues/2236)) ([9138e51](https://github.com/srijitcoder/EOxElements/commit/9138e51cbb5948c72b4e41fa8b942e4ccc744b21))
+* Use correct underscore in modify interaction key ([#2227](https://github.com/srijitcoder/EOxElements/issues/2227)) ([134a395](https://github.com/srijitcoder/EOxElements/commit/134a395efa200479ffcc6bb9e67326b759984758))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eox/elements-utils bumped from ^1.2.0 to ^1.3.0
+  * devDependencies
+    * @eox/map bumped from * to 2.11.0
+
 ## [1.6.0](https://github.com/EOX-A/EOxElements/compare/drawtools-v1.5.0...drawtools-v1.6.0) (2026-05-19)
 
 

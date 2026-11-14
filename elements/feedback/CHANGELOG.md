@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.3.0](https://github.com/srijitcoder/EOxElements/compare/feedback-v1.2.1...feedback-v1.3.0) (2026-11-14)
+
+
+### Features
+
+* Add screenResolution to created feedback request ([#2240](https://github.com/srijitcoder/EOxElements/issues/2240)) ([618084a](https://github.com/srijitcoder/EOxElements/commit/618084acaa54213924340bd52de5ee7a39015883))
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+
+
+### Bug Fixes
+
+* Hide feedback panel when taking screenshot ([#2242](https://github.com/srijitcoder/EOxElements/issues/2242)) ([da63704](https://github.com/srijitcoder/EOxElements/commit/da63704d447ff253b7d10623ebf38665417cf58d))
+* **style:** Remove important from margin and position of feedback button ([#2239](https://github.com/srijitcoder/EOxElements/issues/2239)) ([d41d587](https://github.com/srijitcoder/EOxElements/commit/d41d587d2bc3ebbc3dbe5856981def965c699939))
+* Y-scrollable feedback panel ([#2588](https://github.com/srijitcoder/EOxElements/issues/2588)) ([8897459](https://github.com/srijitcoder/EOxElements/commit/8897459eab72e443aafaca62c1a5083bb3918a01))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eox/elements-utils bumped from ^1.2.0 to ^1.3.0
+  * peerDependencies
+    * @eox/jsonform bumped from * to 1.15.0
+
 ## [1.2.1](https://github.com/EOX-A/EOxElements/compare/feedback-v1.2.0...feedback-v1.2.1) (2026-10-15)
 
 
