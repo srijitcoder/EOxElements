@@ -1,5 +1,52 @@
 # Changelog
 
+## [2.11.0](https://github.com/srijitcoder/EOxElements/compare/timecontrol-v2.10.1...timecontrol-v2.11.0) (2026-11-14)
+
+
+### Features
+
+* Add date-wrap prop in timecontrol ([#2584](https://github.com/srijitcoder/EOxElements/issues/2584)) ([3ef8bc8](https://github.com/srijitcoder/EOxElements/commit/3ef8bc8c686480801c50a7bfc8f25b7e63c114f1))
+* Configurable animate on timecontrol slider ([#2104](https://github.com/srijitcoder/EOxElements/issues/2104)) ([85e6272](https://github.com/srijitcoder/EOxElements/commit/85e62726c6e88bf087464334bba4f1bbee826b17))
+* Configuration for timeline selection defaults (duration, resize) ([#2245](https://github.com/srijitcoder/EOxElements/issues/2245)) ([f50a27a](https://github.com/srijitcoder/EOxElements/commit/f50a27a1e7e6e8476a772c12ed8950e1cdf5f4c2))
+* Customizable show-items tooltip ([#2495](https://github.com/srijitcoder/EOxElements/issues/2495)) ([85f6f31](https://github.com/srijitcoder/EOxElements/commit/85f6f3187aeb1d34eb26207fc737816e4aedb79d))
+* Display date and time in `UTC` ([#2176](https://github.com/srijitcoder/EOxElements/issues/2176)) ([5d2fe87](https://github.com/srijitcoder/EOxElements/commit/5d2fe8764e11170d12830190689ee1be0d5003cc))
+* Enable editing `datetime` input field ([#2562](https://github.com/srijitcoder/EOxElements/issues/2562)) ([f6820f8](https://github.com/srijitcoder/EOxElements/commit/f6820f8d404e41d22747d575cea83de2b706e30f))
+* Extend timecontrol to work with `eox-map-compare` ([#2566](https://github.com/srijitcoder/EOxElements/issues/2566)) ([109c7a7](https://github.com/srijitcoder/EOxElements/commit/109c7a77ff1dca4c3bb2fb53a7c3e2a6ae96d911))
+* GeoZarr support ([#2497](https://github.com/srijitcoder/EOxElements/issues/2497)) ([193e619](https://github.com/srijitcoder/EOxElements/commit/193e619a4c3af9b9c390d309958ccb9367e4ff63))
+* Picker UI for date range filter ([#2338](https://github.com/srijitcoder/EOxElements/issues/2338)) ([dfd9921](https://github.com/srijitcoder/EOxElements/commit/dfd99216525e8760e6f887ed3f3e97231c84ed9f))
+* Standardize user activity events across EOxElements ([#2648](https://github.com/srijitcoder/EOxElements/issues/2648)) ([37643fc](https://github.com/srijitcoder/EOxElements/commit/37643fcc119cb82fe564be6b7716acf4d7952eb6))
+* Support stringified JSON for attributes ([#2304](https://github.com/srijitcoder/EOxElements/issues/2304)) ([f30e5b0](https://github.com/srijitcoder/EOxElements/commit/f30e5b07730ba10acb1b07237856e9675c2faf67))
+* Timeline clustering ([#2243](https://github.com/srijitcoder/EOxElements/issues/2243)) ([2cb4ed0](https://github.com/srijitcoder/EOxElements/commit/2cb4ed0e484f78ec5ec55cdfff67b0a4ca62a617))
+
+
+### Bug Fixes
+
+* Change timecontrol datetime display from local time to UTC ([#2148](https://github.com/srijitcoder/EOxElements/issues/2148)) ([2cf36d8](https://github.com/srijitcoder/EOxElements/commit/2cf36d8a97ceef3357c3598528e12817622db376))
+* Correct timelapse export and show frame loading progress ([#2613](https://github.com/srijitcoder/EOxElements/issues/2613)) ([21f412d](https://github.com/srijitcoder/EOxElements/commit/21f412d7232c70b5b694ffdaad1728a7f4e3a01a))
+* Dark mode style issue ([#2578](https://github.com/srijitcoder/EOxElements/issues/2578)) ([045ec34](https://github.com/srijitcoder/EOxElements/commit/045ec34e60472c33b75f6b952e9ca102774dc2d1))
+* Datepicker don't recenter timeline view  ([#2574](https://github.com/srijitcoder/EOxElements/issues/2574)) ([8dcac8e](https://github.com/srijitcoder/EOxElements/commit/8dcac8ed58d8eb2cbc3105418c229be5d179e574))
+* Exact time based selection for slider and navigation based `timecontrol` element ([#2122](https://github.com/srijitcoder/EOxElements/issues/2122)) ([4e92c1a](https://github.com/srijitcoder/EOxElements/commit/4e92c1a6fb2ea3f28a99f9359e82a8dcde291346))
+* Handle a missing date format in timecontrol navigation ([#2593](https://github.com/srijitcoder/EOxElements/issues/2593)) ([58a547f](https://github.com/srijitcoder/EOxElements/commit/58a547fa756b78d2562179066c75dd673c4abec9))
+* Populate all intermediate dates for range highlighting ([#2337](https://github.com/srijitcoder/EOxElements/issues/2337)) ([ee36651](https://github.com/srijitcoder/EOxElements/commit/ee366519e80242a25b2afc829549b8082ea617d2))
+* Slider ticks and label overlap ([#2568](https://github.com/srijitcoder/EOxElements/issues/2568)) ([ef079f1](https://github.com/srijitcoder/EOxElements/commit/ef079f115f3fb28fca4010ef8fddeb8c2afff08d))
+* **style:** Date picker colors for transparent/dark mode ([#2284](https://github.com/srijitcoder/EOxElements/issues/2284)) ([a185f5f](https://github.com/srijitcoder/EOxElements/commit/a185f5f7c18c22cec8042ee28e760658f121d059))
+* **style:** Date picker sizing ([#2290](https://github.com/srijitcoder/EOxElements/issues/2290)) ([bb98860](https://github.com/srijitcoder/EOxElements/commit/bb98860f4c1b39c5c313cb017745e03caa7f9e14))
+* **style:** Fill selected date with primary color across all selection modes ([#2494](https://github.com/srijitcoder/EOxElements/issues/2494)) ([9dd6f80](https://github.com/srijitcoder/EOxElements/commit/9dd6f803da559336d8535fa083fc910ea961eb22))
+* **style:** Styling for date range selection ([#2316](https://github.com/srijitcoder/EOxElements/issues/2316)) ([ed78648](https://github.com/srijitcoder/EOxElements/commit/ed78648d93570809cdf1eb22715dc983adb89748))
+* Support multidimensional date range initialization and slider sync ([#2569](https://github.com/srijitcoder/EOxElements/issues/2569)) ([796ae2c](https://github.com/srijitcoder/EOxElements/commit/796ae2c2d6850f6812c255f0090a36573ceb4b6e))
+* Timeline not updating on group layer changes ([#2409](https://github.com/srijitcoder/EOxElements/issues/2409)) ([eb8c839](https://github.com/srijitcoder/EOxElements/commit/eb8c8394af9506f55b2d32a247acaa830f98f41b))
+* Timeline re-creation flashing and date selection reset bugs when map layers update dynamically ([#2614](https://github.com/srijitcoder/EOxElements/issues/2614)) ([562124c](https://github.com/srijitcoder/EOxElements/commit/562124c72942f1a2ea64c672a8827cea0494f22a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eox/elements-utils bumped from ^1.2.0 to ^1.3.0
+  * devDependencies
+    * @eox/itemfilter bumped from ^1.13.0 to ^1.19.0
+    * @eox/map bumped from ^1.26.3 to ^2.11.0
+
 ## [2.10.1](https://github.com/EOX-A/EOxElements/compare/timecontrol-v2.10.0...timecontrol-v2.10.1) (2026-10-26)
 
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/srijitcoder/EOxElements/compare/layout-v1.2.0...layout-v1.3.0) (2026-11-14)
+
+
+### Features
+
+* Add map-workspace and map-side-by-side layout components ([#2544](https://github.com/srijitcoder/EOxElements/issues/2544)) ([52b1fcb](https://github.com/srijitcoder/EOxElements/commit/52b1fcbe8cf96cb19bf44bf819e6d67db8f23660))
+* Add right sidebar panel support to map workspace ([#2553](https://github.com/srijitcoder/EOxElements/issues/2553)) ([356e94f](https://github.com/srijitcoder/EOxElements/commit/356e94fd48f57c98a7beb0ff1e20fe9cacaf8363))
+
 ## [1.2.0](https://github.com/EOX-A/EOxElements/compare/layout-v1.1.0...layout-v1.2.0) (2026-09-29)
 
 
